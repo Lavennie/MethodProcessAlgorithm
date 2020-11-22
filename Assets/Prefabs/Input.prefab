@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 840236781135286934}
-  - component: {fileID: 5013633722400396055}
+  - component: {fileID: 4439269770675829793}
   m_Layer: 5
   m_Name: Input
   m_TagString: Untagged
@@ -39,7 +39,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &5013633722400396055
+--- !u!114 &4439269770675829793
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,11 +48,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 840236781135286935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 292f6948d1918d848b3d789322cfa1c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 400c756f820d05c468b0c83e8ead5ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circuitDot: {fileID: 840236782868213461}
-  circuitLine: {fileID: 840236782181129472}
+  type: 1
 --- !u!1 &840236782181129478
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +88,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 1}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &840236782181129475
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -214,7 +213,6 @@ GameObject:
   - component: {fileID: 5487869996056532057}
   - component: {fileID: 3223300395031135167}
   - component: {fileID: 2319978307386045497}
-  - component: {fileID: 2321837059933392849}
   m_Layer: 5
   m_Name: Collider
   m_TagString: Untagged
@@ -279,15 +277,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2321837059933392849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1641662997410340961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31f785c6afa11b045ae5025a66ed8d3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

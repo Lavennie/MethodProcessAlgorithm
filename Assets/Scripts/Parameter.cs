@@ -39,3 +39,25 @@ public sealed class ParamBool : Parameter<bool>
 {
     public ParamBool(bool value) : base(value) { }
 }
+[Serializable]
+public sealed class ParamVector2 : Parameter<float[]>
+{
+    public ParamVector2(Vector2 v) : base(new float[2] { v.x, v.y }) { }
+    public ParamVector2(float x, float y) : base(new float[2] { x, y }) { }
+}
+[Serializable]
+public sealed class ParamVector3 : Parameter<float[]>
+{
+    public ParamVector3(Vector3 v) : base(new float[3] { v.x, v.y, v.z }) { }
+    public ParamVector3(float x, float y, float z) : base(new float[3] { x, y, 3 }) { }
+}
+[Serializable]
+public sealed class ParamPickup : Parameter<GameObject>
+{
+    public ParamPickup(GameObject value) : base(value) { }
+}
+[Serializable]
+public sealed class ParamVoid : Parameter<object>
+{
+    public ParamVoid() : base(null) { }
+}

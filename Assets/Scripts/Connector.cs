@@ -8,7 +8,8 @@ public sealed class Connector : MonoBehaviour, IPointerEnterHandler, IPointerExi
 {
     private const float HIGHLIGHT_ADD = 0.7f;
 
-    public ConnectorType type;
+    [SerializeField] private ConnectorType type;
+    private ConnectorID dataType;
 
     private Color color;
     private Connector linked;
@@ -19,8 +20,28 @@ public sealed class Connector : MonoBehaviour, IPointerEnterHandler, IPointerExi
         Dot.color = ColorPalette.LightColor;
         Line.color = ColorPalette.LightColor;
 
-        ((RectTransform)Dot.transform).sizeDelta *= new Vector2(Database.CIRCUIT_DOT_RADIUS, Database.CIRCUIT_DOT_RADIUS);
-        ((RectTransform)Line.transform).sizeDelta *= new Vector2(1, Database.CIRCUIT_WIDTH);
+        ((RectTransform)Dot.transform).sizeDelta = new Vector2(Database.CIRCUIT_DOT_RADIUS, Database.CIRCUIT_DOT_RADIUS);
+        if (type == ConnectorType.Input)
+        {
+            ((RectTransform)Line.transform).offsetMax = new Vector2(-Database.CIRCUIT_DOT_RADIUS, ((RectTransform)Line.transform).anchorMin.y);
+        }
+        else
+        {
+            ((RectTransform)Line.transform).offsetMin = new Vector2(Database.CIRCUIT_DOT_RADIUS, ((RectTransform)Line.transform).anchorMin.y);
+
+        }
+        ((RectTransform)Line.transform).sizeDelta = new Vector2(((RectTransform)Line.transform).sizeDelta.x, Database.CIRCUIT_WIDTH);
+    }
+
+    public void Init(ConnectorID dataType)
+    {
+        this.dataType = dataType;
+        Dot.sprite = Database.GetSprite(dataType);
+    }
+
+    public static int GetConnectorIndex(Connector connector)
+    {
+        return connector.transform.GetSiblingIndex() / 2;
     }
 
     public Connector GetLinkedConnector()
@@ -41,6 +62,16 @@ public sealed class Connector : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         Dot.color = color;
         Line.color = color;
+    }
+
+    public static bool CanConnect(Connector input, Connector output)
+    {
+        if (input.dataType == output.dataType ||
+            (input.dataType <= ConnectorID.FlowIfFalse && output.dataType <= ConnectorID.FlowIfFalse))
+        {
+            return true;
+        }
+        return false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -29,6 +29,10 @@ public class CodeBlocks : MonoBehaviour
         }
     }
 
+    public static int GetBlockIndex(Block block)
+    {
+        return block.transform.GetSiblingIndex();
+    }
     public Block[] GetBlocks()
     {
         Block[] blocks = new Block[BlockCount];

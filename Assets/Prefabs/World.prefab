@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4376008911079033239
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4376008911079033233}
+  - component: {fileID: 4376008911079033232}
+  - component: {fileID: 4686401944567318868}
+  m_Layer: 0
+  m_Name: World
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4376008911079033233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376008911079033239}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 748.93744, y: 403.5241, z: 2.9022217}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4376008911079033232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376008911079033239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 903587e36f744d14ab0973c55942af67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pallete:
+    lightColor: {r: 0, g: 1, b: 0.976, a: 1}
+    bgLight: {r: 0.337, g: 0.337, b: 0.337, a: 1}
+    bgNormal: {r: 0.118, g: 0.118, b: 0.118, a: 1}
+    bgDark: {r: 0, g: 0, b: 0, a: 1}
+    slataNormal: {r: 0.863, g: 0.863, b: 0.863, a: 1}
+    slateDark: {r: 0.686, g: 0.686, b: 0.686, a: 1}
+  transparentSprite: {fileID: 21300000, guid: 9c2ac8f4bbdc9c449a609bac6591746b, type: 3}
+  connectorFlowSprite: {fileID: 21300000, guid: 2b4ea90f6d5f1b04ab2622fa20cbf89d, type: 3}
+  connectorFlowTrueSprite: {fileID: 21300000, guid: ebcfa6bcc7357dc4dba15b02a14182bb, type: 3}
+  connectorFlowFalseSprite: {fileID: 21300000, guid: e828cd1c96842d24c947045b4b2a10f3, type: 3}
+  connectorNumberSprite: {fileID: 21300000, guid: ba1f8861aeebb6447902276985201605, type: 3}
+  connectorTrueFalseSprite: {fileID: 21300000, guid: 90f0363ee558dc74e9dc473fbad7fa9b, type: 3}
+  connectorDirection2Sprite: {fileID: 21300000, guid: 022dba639954e2242b39da9f0fedcda6, type: 3}
+  connectorDirection3Sprite: {fileID: 21300000, guid: 603f231f8c521c249b8431f9c0489c7f, type: 3}
+  connectorPickupSprite: {fileID: 21300000, guid: a48dd671bf4a88841a55e3765deb3bb1, type: 3}
+  connectorEnemySprite: {fileID: 21300000, guid: 681e97cd37b03ab4aa869576265e7a1b, type: 3}
+  blockPrefab: {fileID: 49030230208450979, guid: a22ed586dbc76c44f84684bf74c291f1, type: 3}
+  inputPrefab: {fileID: 4439269770675829793, guid: 3fc6e9a1ba160dd449ad0107f6a9f1a1, type: 3}
+  outputPrefab: {fileID: 1316869126268989021, guid: 5a2bdfa137cda23458818dbf3844288d, type: 3}
+  integratedParamPrefab: {fileID: -1414193502228395731, guid: 456de78fdd2a417469a7d4e4add7ba43, type: 3}
+  menuBlockEntryPrefab: {fileID: 5132094618051985505, guid: 393965a317602ab49928e906820594b3, type: 3}
+  linkPrefab: {fileID: -7885143666839943631, guid: c93fb2b0ed75139498beaef0fd7db799, type: 3}
+  codeWindow: {fileID: 0}
+  codeExecutor: {fileID: 0}
+  objective: {fileID: 4686401944567318868}
+  player: {fileID: 0}
+--- !u!114 &4686401944567318868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376008911079033239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce5ecce12f0332f4c9d3e4f796cc8b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

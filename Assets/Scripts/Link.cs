@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Link : MonoBehaviour
+public class Link : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     private Connector input;
     private Connector output;
 
     private void OnEnable()
     {
-        GetComponent<Image>().color = ColorPalette.SlateNormal;
+        Unhighlight();
     }
 
     private void Update()
@@ -52,11 +53,11 @@ public class Link : MonoBehaviour
 
     public bool TryConnect(Connector to)
     {
-        if (input == null)
+        if (input == null && output != null)
         {
             input = to;
         }
-        else if (output == null)
+        else if (input != null && output == null)
         {
             output = to;
         }
@@ -64,8 +65,46 @@ public class Link : MonoBehaviour
         {
             return false;
         }
-        CollisionEnabled = true;
-        return true;
+
+        if (Connector.CanConnect(input, output))
+        {
+            CollisionEnabled = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void Highlight()
+    {
+        GetComponent<Image>().color = ColorPalette.SlateDark;
+    }
+    public void Unhighlight()
+    {
+        GetComponent<Image>().color = ColorPalette.SlateNormal;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Highlight();
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Unhighlight();
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (Vector2.Distance(eventData.position, input.transform.position) < Vector2.Distance(eventData.position, output.transform.position))
+        {
+            input = null;
+        }
+        else
+        {
+            output = null;
+        }
+        CollisionEnabled = false;
     }
 
     public bool CollisionEnabled
@@ -73,6 +112,11 @@ public class Link : MonoBehaviour
         get { return GetComponent<Image>().raycastTarget; }
         set
         {
+            if (value)
+            {
+                Highlight();
+            }
+            // set image and collider raycasting. When dragging around collision is disabled
             GetComponent<Image>().raycastTarget = value;
             transform.GetChild(0).GetComponent<Image>().raycastTarget = value;
         }

@@ -30,9 +30,13 @@ public class BlockDrag : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Block.SetSelected(true);
-        if (Block.IsSelected && eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
+            if (!Block.IsSelected)
+            {
+                CodeBlocks.DeselectAll();
+                Block.SetSelected(true);
+            }
             CodeBlocks.BeginDragingSelected();
         }
     }

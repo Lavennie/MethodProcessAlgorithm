@@ -25,6 +25,11 @@ public class CodeExecutor : MonoBehaviour
         Instance.enabled = false;
     }
 
+    public void ResetToIdle()
+    {
+        player.speedInThisFrame = 0;
+    }
+
 
     private void Update()
     {

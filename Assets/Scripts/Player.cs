@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 1.0f;
+    public float moveSpeed = 1.0f;
+    public float rotateSpeed = 1.0f;
+
+    public float speedInThisFrame;
 
     private CharacterController cc;
 
@@ -20,6 +23,11 @@ public class Player : MonoBehaviour
         Mesh.materials[2].color = ColorPalette.SlateNormal;
         Mesh.materials[3].color = ColorPalette.BgDark;
         Mesh.materials[4].color = ColorPalette.BgDark;
+    }
+
+    private void Update()
+    {
+        speedInThisFrame = 0.0f;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -37,8 +45,12 @@ public class Player : MonoBehaviour
     {
         direction.y = 0;
         direction.Normalize();
-        cc.Move((direction * speed + Physics.gravity) * Time.deltaTime);
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction, Vector3.up), rotateSpeed * Time.deltaTime);
+
+        speedInThisFrame = direction.magnitude * moveSpeed;
+        cc.Move((direction * moveSpeed + Physics.gravity) * Time.deltaTime);
     }
 
-    public MeshRenderer Mesh { get { return transform.GetChild(0).GetComponent<MeshRenderer>(); } }
+    public SkinnedMeshRenderer Mesh { get { return transform.GetChild(0).GetComponent<SkinnedMeshRenderer>(); } }
 }

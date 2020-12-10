@@ -20,20 +20,17 @@ public class MainMenu : MonoBehaviour
         Vector2 offset = new Vector2(LevelContainer.rect.width / (LEVELS_IN_ROW - 1), LevelContainer.rect.height / (ROW_COUNT - 1));
         for (int i = 0; i < levelCount; i++)
         {
-            if (!SceneManager.GetSceneByName(string.Format("Level {0}", i + 1)).IsValid())
-            {
-                continue;
-            }
             RectTransform level = Instantiate(levelButtonPrefab,  LevelContainer);
             level.position = startPosition + new Vector3(i % LEVELS_IN_ROW * offset.x, (i / LEVELS_IN_ROW) * -offset.y, 0);
             level.GetChild(0).GetComponent<TextMeshProUGUI>().text = string.Format("Level {0}", i + 1);
-            level.GetComponent<Button>().onClick.AddListener(delegate { LoadLevel(i); });
+            int temp = i;
+            level.GetComponent<Button>().onClick.AddListener(() => LoadLevel(temp));
         }
     }
 
     private void LoadLevel(int levelIndex)
     {
-        SceneManager.LoadScene(string.Format("Level {0}", levelIndex));
+        SceneManager.LoadScene(string.Format("Level {0}", levelIndex + 1));
     }
 
     private RectTransform LevelContainer { get { return (RectTransform)transform.GetChild(0); } }

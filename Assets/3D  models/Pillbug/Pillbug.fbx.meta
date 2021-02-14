@@ -8,27 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Cover
-    second: {fileID: 2100000, guid: 8195ec1fa695a9e40933ded7c6c876b3, type: 2}
+    second: {fileID: 2100000, guid: ff4111ac6c38b174f92c53767f30362a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Lens
-    second: {fileID: 2100000, guid: 5c7f1c43d39f69b4982d9e4111b2cd3d, type: 2}
+    second: {fileID: 2100000, guid: ff4111ac6c38b174f92c53767f30362a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Light
-    second: {fileID: 2100000, guid: 93a15c4c408567b4ba495a70fa5c5656, type: 2}
+    second: {fileID: 2100000, guid: ff4111ac6c38b174f92c53767f30362a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Metal
-    second: {fileID: 2100000, guid: 11ade73a561ac95429482d0c13cab28d, type: 2}
+    second: {fileID: 2100000, guid: ff4111ac6c38b174f92c53767f30362a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Rubber
-    second: {fileID: 2100000, guid: b03bd04922f06fa489de94bb867e9f69, type: 2}
+    second: {fileID: 2100000, guid: ff4111ac6c38b174f92c53767f30362a, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

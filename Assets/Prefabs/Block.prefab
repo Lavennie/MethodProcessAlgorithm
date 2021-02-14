@@ -541,6 +541,7 @@ GameObject:
   - component: {fileID: 1581190250830717752}
   - component: {fileID: 49030230208450979}
   - component: {fileID: -7331734139592218404}
+  - component: {fileID: 8044270933460183630}
   m_Layer: 5
   m_Name: Block
   m_TagString: Untagged
@@ -600,6 +601,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0}
   dragging: 0
+--- !u!114 &8044270933460183630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581190250830717753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9aaba5dd0c0d24997618c4e794b4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphics:
+  - colorSlot: 5
+    obj: {fileID: 2267364191394297693}
+  - colorSlot: 0
+    obj: {fileID: 1581190251249244466}
+  - colorSlot: 1
+    obj: {fileID: 1581190250195216592}
+  - colorSlot: 3
+    obj: {fileID: 1581190250673471176}
+  - colorSlot: 3
+    obj: {fileID: 1581190249737158978}
+  - colorSlot: 5
+    obj: {fileID: 6694640165683683866}
+  - colorSlot: 5
+    obj: {fileID: 5040151058919828367}
+  - colorSlot: 5
+    obj: {fileID: 1897130752485359937}
+  - colorSlot: 5
+    obj: {fileID: 6123099064180976871}
+  - colorSlot: 5
+    obj: {fileID: 6744189286195567350}
+  - colorSlot: 5
+    obj: {fileID: 996728120688253534}
+  - colorSlot: 5
+    obj: {fileID: 5663887187934976807}
+  - colorSlot: 5
+    obj: {fileID: 7747258117868265155}
 --- !u!1 &1581190251249244468
 GameObject:
   m_ObjectHideFlags: 0

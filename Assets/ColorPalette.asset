@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf81188e80763214fb39a6b9951594b2, type: 3}
+  m_Name: ColorPalette
+  m_EditorClassIdentifier: 
+  light: {r: 1, g: 0.81071895, b: 0, a: 1}
+  copper: {r: 0.961, g: 0.608, b: 0.259, a: 1}
+  plastic: {r: 0.2747864, g: 0.7917365, b: 0.8962264, a: 1}
+  bgLight: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  bgNormal: {r: 0.25, g: 0.25, b: 0.25, a: 1}
+  bgDark: {r: 0, g: 0, b: 0, a: 1}
+  slateNormal: {r: 0.863, g: 0.863, b: 0.863, a: 1}
+  slateDark: {r: 0.686, g: 0.686, b: 0.686, a: 1}
+  materials:
+  - colorSlot: 5
+    obj: {fileID: 2100000, guid: d1a89fdafdc86c641b04614793483ae2, type: 2}
+  - colorSlot: 8
+    obj: {fileID: 2100000, guid: 45ccd93a990b20e42bbba85a34a9bfa1, type: 2}
+  - colorSlot: 9
+    obj: {fileID: 2100000, guid: 06b4b29cee78299499d7b3ab36d9d499, type: 2}
+  - colorSlot: 0
+    obj: {fileID: 2100000, guid: 1442edb72d3c7414fa3b25d4522a2032, type: 2}
+  - colorSlot: 3
+    obj: {fileID: 2100000, guid: ff4111ac6c38b174f92c53767f30362a, type: 2}
+  - colorSlot: 2
+    obj: {fileID: 2100000, guid: 56246436d3e5afe45be1d12d0cc64a06, type: 2}
+  - colorSlot: 5
+    obj: {fileID: 2100000, guid: f8ac7a9ef0b206e4fa965f5f05d4c3dc, type: 2}
+  - colorSlot: 6
+    obj: {fileID: 2100000, guid: d4914085fd89d65468f51ec3c07e7a9c, type: 2}
+  - colorSlot: 6
+    obj: {fileID: 2100000, guid: 2d925d77d1066d94fafa19c683f5d6ad, type: 2}

@@ -13,7 +13,7 @@ public class Objective : MonoBehaviour
 
     void Update()
     {
-        if (!CodeExecutor.Instance.enabled) { return; }
+        if (CodeExecutor.Instance == null || !CodeExecutor.Instance.enabled) { return; }
 
         if (pickups.Count == 0)
         {
@@ -51,5 +51,5 @@ public class Objective : MonoBehaviour
         Destroy(pickup);
     }
 
-    public static Objective Instance { get { return Database.Instance.Objective; } }
+    public static Objective Instance { get { return Database.Instance?.Objective; } }
 }

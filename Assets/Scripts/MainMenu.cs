@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
             level.position = startPosition + new Vector3(i % LEVELS_IN_ROW * offset.x, (i / LEVELS_IN_ROW) * -offset.y, 0);
             level.GetChild(0).GetComponent<TextMeshProUGUI>().text = string.Format("Level {0}", i + 1);
             int temp = i;
-            level.GetComponent<Button>().onClick.AddListener(() => LoadLevel(temp));
+            level.GetComponent<ColoredElementButton>().onClick.AddListener(() => LoadLevel(temp));
         }
     }
 

@@ -16,15 +16,6 @@ public class Player : MonoBehaviour
         cc = GetComponent<CharacterController>();
     }
 
-    private void OnEnable()
-    {
-        Mesh.materials[0].color = ColorPalette.BgNormal;
-        Mesh.materials[1].color = ColorPalette.LightColor;
-        Mesh.materials[2].color = ColorPalette.SlateNormal;
-        Mesh.materials[3].color = ColorPalette.BgDark;
-        Mesh.materials[4].color = ColorPalette.BgDark;
-    }
-
     private void Update()
     {
         speedInThisFrame = 0.0f;

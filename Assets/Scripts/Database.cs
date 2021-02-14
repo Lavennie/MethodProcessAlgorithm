@@ -5,12 +5,12 @@ using UnityEngine;
 
 public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, BlockData>>
 {
-    public static Database Instance { get; private set; }
     public const float CIRCUIT_WIDTH = 3.0f;
     public const float CIRCUIT_DOT_RADIUS = 8.0f;
 
-    [Header("Color set")]
-    public ColorPalette pallete;
+    private static Database instance;
+
+    [SerializeField] private ColorPalette colorPalette;
 
     [Header("Connector sprites")]
     [SerializeField] private Sprite transparentSprite;
@@ -52,7 +52,7 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
 
     private void Awake()
     {
-        Instance = this;
+        instance = this;
     }
 
     public IEnumerator<KeyValuePair<BlockID, BlockData>> GetEnumerator()
@@ -92,30 +92,15 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
                 return Instance.transparentSprite;
         }
     }
+    public static Color GetColor(ColorPalette.Slot colorSlot) { return Instance.colorPalette.GetColorFromSlot(colorSlot); }
 
+    public static Database Instance { get { return instance; } }
     public BlockData this[BlockID id] { get { return data[id]; } }
     public CodeWindow CodeWindow { get { return codeWindow; } }
     public CodeExecutor CodeExecutor { get { return codeExecutor; } }
     public Objective Objective { get { return objective; } }
     public EndScreen EndScreen { get { return endScreen; } }
     public Player Player { get { return player; } }
-}
-[System.Serializable]
-public class ColorPalette
-{
-    public Color lightColor = new Color(0.0f, 1.0f, 0.976f);
-    public Color bgLight = new Color(0.337f, 0.337f, 0.337f);
-    public Color bgNormal = new Color(0.118f, 0.118f, 0.118f);
-    public Color bgDark = new Color(0.0f, 0.0f, 0.0f);
-    public Color slataNormal = new Color(0.863f, 0.863f, 0.863f);
-    public Color slateDark = new Color(0.686f, 0.686f, 0.686f);
-
-    public static Color LightColor { get { return Database.Instance.pallete.lightColor; } }
-    public static Color BgLight { get { return Database.Instance.pallete.bgLight; } }
-    public static Color BgNormal { get { return Database.Instance.pallete.bgNormal; } }
-    public static Color BgDark { get { return Database.Instance.pallete.bgDark; } }
-    public static Color SlateNormal { get { return Database.Instance.pallete.slataNormal; } }
-    public static Color SlateDark { get { return Database.Instance.pallete.slateDark; } }
 }
 
 public enum BlockID : uint

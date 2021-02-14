@@ -87,5 +87,5 @@ public class CodeExecutor : MonoBehaviour
         return null;
     }
 
-    public static CodeExecutor Instance { get { return Database.Instance.CodeExecutor; } }
+    public static CodeExecutor Instance { get { return Database.Instance?.CodeExecutor; } }
 }

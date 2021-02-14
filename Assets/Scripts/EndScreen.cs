@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -39,5 +37,5 @@ public class EndScreen : MonoBehaviour
     private Button Next { get { return transform.GetChild(2).GetComponent<Button>(); } }
     private TextMeshProUGUI WinLoseText { get { return transform.GetChild(3).GetComponent<TextMeshProUGUI>(); } }
 
-    private static EndScreen Instance { get { return Database.Instance.EndScreen; } }
+    private static EndScreen Instance { get { return Database.Instance?.EndScreen; } }
 }

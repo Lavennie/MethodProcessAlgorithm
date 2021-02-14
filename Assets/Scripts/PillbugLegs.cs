@@ -68,14 +68,6 @@ public sealed class PillbugLegs : MonoBehaviour
         loopPoint = Mathf.Repeat(loopPoint + Time.deltaTime * legSpeed * player.speedInThisFrame, 1.0f);
     }
 
-    private void OnDrawGizmos()
-    {
-        foreach (var leg in legs)
-        {
-            Gizmos.DrawSphere(leg.ik.position, 0.3f);
-        }
-    }
-
     [System.Serializable]
     public class Leg
     {

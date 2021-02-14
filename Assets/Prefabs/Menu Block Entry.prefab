@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 297130178281367590}
   - component: {fileID: 5132094618051985505}
+  - component: {fileID: 298938480231046336}
   m_Layer: 5
   m_Name: Menu Block Entry
   m_TagString: Untagged
@@ -49,6 +50,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7174df4c840a94193952747d3ecfea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &298938480231046336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297130178281367591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9aaba5dd0c0d24997618c4e794b4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphics:
+  - colorSlot: 1
+    obj: {fileID: 297130178289408621}
 --- !u!1 &297130178289408619
 GameObject:
   m_ObjectHideFlags: 0

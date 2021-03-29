@@ -51,7 +51,9 @@ public sealed class Connector : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public static bool CanConnect(Connector input, Connector output)
     {
-        if (input.dataType == output.dataType ||
+        if (input.dataType == output.dataType || 
+            (input.dataType == ConnectorID.Vector2 && output.dataType == ConnectorID.Direction2) ||
+            (input.dataType == ConnectorID.Direction2 && output.dataType == ConnectorID.Vector2) ||
             (input.dataType <= ConnectorID.FlowIfFalse && output.dataType <= ConnectorID.FlowIfFalse))
         {
             return true;

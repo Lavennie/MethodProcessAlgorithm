@@ -15,6 +15,7 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
     public Toggle boolInput;
     public TMP_InputField[] vector2Input;
     public TMP_InputField[] vector3Input;
+    public IntegratedParameterDirection directionInput;
 
     private float closeHeight;
     private bool open = false;
@@ -67,19 +68,24 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
                 boolInput.transform.parent.gameObject.SetActive(true);
                 boolInput.isOn = ((ParamBool)paramValue).GetValue();
                 break;
-            case ConnectorID.Direction2:
+            case ConnectorID.Vector2:
                 vector2Input[0].transform.parent.gameObject.SetActive(true);
                 for (int i = 0; i < 2; i++)
                 {
                     vector2Input[i].text = string.Format("{0:0.0###}", (paramValue != null) ? ((ParamVector2)paramValue).GetValue()[i] : 0.0f);
                 }
                 break;
-            case ConnectorID.Direction3:
+            case ConnectorID.Vector3:
                 vector3Input[0].transform.parent.gameObject.SetActive(true);
                 for (int i = 0; i < 3; i++)
                 {
-                    vector3Input[i].text = string.Format("{0:0.0###}", (paramValue != null) ? ((ParamVector2)paramValue).GetValue()[i] : 0.0f);
+                    vector3Input[i].text = string.Format("{0:0.0###}", (paramValue != null) ? ((ParamVector3)paramValue).GetValue()[i] : 0.0f);
                 }
+                break;
+            case ConnectorID.Direction2:
+                directionInput.transform.parent.gameObject.SetActive(true);
+                directionInput.SetX((paramValue != null) ? ((ParamVector2)paramValue).GetValue()[0] : 0.0f);
+                directionInput.SetY((paramValue != null) ? ((ParamVector2)paramValue).GetValue()[1] : 0.0f);
                 break;
             default:
                 Debug.LogError(type + " is not an implemented type for integrated parameters", this);
@@ -127,8 +133,13 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
         else if (vector3Input[0].IsActive() && vector3Input[1].IsActive() && vector3Input[2].IsActive())
         {
             // 8203 is some unwanted character that is at end
-            return new ParamVector2(float.Parse(vector2Input[0].text.Trim((char)8203)),
-                                    float.Parse(vector2Input[1].text.Trim((char)8203)));
+            return new ParamVector3(float.Parse(vector3Input[0].text.Trim((char)8203)),
+                                    float.Parse(vector3Input[1].text.Trim((char)8203)),
+                                    float.Parse(vector3Input[2].text.Trim((char)8203)));
+        }
+        else if (directionInput.enabled)
+        {
+            return new ParamVector2(directionInput.GetX(), directionInput.GetY());
         }
         else
         {
@@ -144,7 +155,8 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
                 floatInput.IsActive() ||
                 boolInput.IsActive() ||
                 (vector2Input[0].IsActive() && vector2Input[1].IsActive()) ||
-                (vector3Input[0].IsActive() && vector3Input[1].IsActive() && vector3Input[2].IsActive());
+                (vector3Input[0].IsActive() && vector3Input[1].IsActive() && vector3Input[2].IsActive()) ||
+                directionInput.gameObject.activeInHierarchy;
         }
     }
 }

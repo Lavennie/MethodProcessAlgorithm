@@ -43,11 +43,10 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
     {
         { BlockID.Update, new BlockData("Update", "Control", new ConnectorID[0], new ConnectorID[1] { ConnectorID.FlowNormal })},
         { BlockID.If, new BlockData("If", "Control", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Bool }, new ConnectorID[2] { ConnectorID.FlowIfTrue, ConnectorID.FlowIfFalse })},
-        { BlockID.Rotate, new BlockData("Rotate", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Float }, new ConnectorID[1] { ConnectorID.FlowNormal })},
         { BlockID.Move, new BlockData("Move", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Direction2 }, new ConnectorID[1] { ConnectorID.FlowNormal })},
         { BlockID.LineOfSight, new BlockData("Line of Sight", "Vision", new ConnectorID[0] { }, new ConnectorID[1] { ConnectorID.Bool })},
         { BlockID.NearestPickup, new BlockData("Nearest pickup", "Vision", new ConnectorID[0] { }, new ConnectorID[1] { ConnectorID.Pickup })},
-        { BlockID.DirectionTo, new BlockData("Direction To", "Vision", new ConnectorID[1] { ConnectorID.Pickup }, new ConnectorID[1] { ConnectorID.Direction2 })},
+        { BlockID.DirectionTo, new BlockData("Direction To", "Vision", new ConnectorID[1] { ConnectorID.Pickup }, new ConnectorID[1] { ConnectorID.Vector2 })},
     };
 
     private void Awake()
@@ -80,9 +79,10 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
                 return Instance.connectorNumberSprite;
             case ConnectorID.Bool:
                 return Instance.connectorTrueFalseSprite;
+            case ConnectorID.Vector2:
             case ConnectorID.Direction2:
                 return Instance.connectorDirection2Sprite;
-            case ConnectorID.Direction3:
+            case ConnectorID.Vector3:
                 return Instance.connectorDirection3Sprite;
             case ConnectorID.Pickup:
                 return Instance.connectorPickupSprite;
@@ -106,7 +106,6 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
 public enum BlockID : uint
 {
     Update,
-    Rotate,
     Move,
     If,
     LineOfSight,
@@ -121,10 +120,11 @@ public enum ConnectorID : uint
     Int,
     Float,
     Bool,
-    Direction2,
-    Direction3,
+    Vector2,
+    Vector3,
     Pickup,
     Enemy,
+    Direction2,
 }
 public struct BlockData
 {

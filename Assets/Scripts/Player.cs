@@ -35,7 +35,8 @@ public class Player : MonoBehaviour
     public void Move(Vector3 direction)
     {
         direction.y = 0;
-        direction.Normalize();
+        if (direction == Vector3.zero) { return; }
+        direction = transform.TransformDirection(direction);
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction, Vector3.up), rotateSpeed * Time.deltaTime);
 

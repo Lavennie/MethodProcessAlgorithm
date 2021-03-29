@@ -32,9 +32,9 @@ public class EndScreen : MonoBehaviour
         Debug.Log("NEXT level");
     }
 
-    private Button Replay { get { return transform.GetChild(0).GetComponent<Button>(); } }
-    private Button MainMenu { get { return transform.GetChild(1).GetComponent<Button>(); } }
-    private Button Next { get { return transform.GetChild(2).GetComponent<Button>(); } }
+    private ColoredElementButton Replay { get { return transform.GetChild(0).GetComponent<ColoredElementButton>(); } }
+    private ColoredElementButton MainMenu { get { return transform.GetChild(1).GetComponent<ColoredElementButton>(); } }
+    private ColoredElementButton Next { get { return transform.GetChild(2).GetComponent<ColoredElementButton>(); } }
     private TextMeshProUGUI WinLoseText { get { return transform.GetChild(3).GetComponent<TextMeshProUGUI>(); } }
 
     private static EndScreen Instance { get { return Database.Instance?.EndScreen; } }

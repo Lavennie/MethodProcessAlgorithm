@@ -65,9 +65,6 @@ public class CodeExecutor : MonoBehaviour
     {
         switch (block)
         {
-            case BlockID.Rotate:
-                player.Rotate(((ParamFloat)inputData[1]).GetValue());
-                break;
             case BlockID.Move:
                 float[] xy = ((ParamVector2)inputData[1]).GetValue();
                 player.Move(new Vector3(xy[0], 0, xy[1]));

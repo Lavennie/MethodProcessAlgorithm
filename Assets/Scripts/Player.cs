@@ -10,10 +10,14 @@ public class Player : MonoBehaviour
     public float speedInThisFrame;
 
     private CharacterController cc;
+    private Transform dummy;
 
     private void Awake()
     {
         cc = GetComponent<CharacterController>();
+        dummy = new GameObject("Player Move Dummy").transform;
+        dummy.position = transform.position;
+        dummy.rotation = transform.rotation;
     }
 
     private void Update()
@@ -30,18 +34,28 @@ public class Player : MonoBehaviour
 
     public void Rotate(float angle)
     {
-        transform.Rotate(0, angle * Time.deltaTime, 0);
+        dummy.Rotate(0, angle, 0);
+    }
+    public void Rotate(Vector3 direction)
+    {
+        dummy.forward = direction.normalized;
     }
     public void Move(Vector3 direction)
     {
+        if (direction.magnitude > 1.0f)
+        {
+            direction.Normalize();
+        }
+
         direction.y = 0;
         if (direction == Vector3.zero) { return; }
-        direction = transform.TransformDirection(direction);
+        direction = dummy.TransformDirection(direction);
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction, Vector3.up), rotateSpeed * Time.deltaTime);
 
         speedInThisFrame = direction.magnitude * moveSpeed;
         cc.Move((direction * moveSpeed + Physics.gravity) * Time.deltaTime);
+        dummy.position = transform.position;
     }
 
     public SkinnedMeshRenderer Mesh { get { return transform.GetChild(0).GetComponent<SkinnedMeshRenderer>(); } }

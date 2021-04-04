@@ -57,6 +57,11 @@ public sealed class ParamPickup : Parameter<GameObject>
     public ParamPickup(GameObject value) : base(value) { }
 }
 [Serializable]
+public sealed class ParamColor : Parameter<TriggerPlate.TriggerColor>
+{
+    public ParamColor(TriggerPlate.TriggerColor value) : base(value) { }
+}
+[Serializable]
 public sealed class ParamVoid : Parameter<object>
 {
     public ParamVoid() : base(null) { }

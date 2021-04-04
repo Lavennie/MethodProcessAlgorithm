@@ -50,6 +50,17 @@ public class Link : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
         return link;
     }
+    public static bool IsConnectorConnected(Connector connector)
+    {
+        foreach (var link in CodeWindow.Instance.Links.GetLinks())
+        {
+            if (link.Input == connector || link.Input == connector)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public bool TryConnect(Connector to)
     {

@@ -12,7 +12,6 @@ public sealed class Connector : MonoBehaviour, IPointerEnterHandler, IPointerExi
     private ConnectorID dataType;
 
     private Color color;
-    private Connector linked;
 
     private void OnEnable()
     {
@@ -37,16 +36,15 @@ public sealed class Connector : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public static int GetConnectorIndex(Connector connector)
     {
-        return connector.transform.GetSiblingIndex() / 2;
-    }
-
-    public Connector GetLinkedConnector()
-    {
-        return linked;
-    }
-    public Block GetLinked()
-    {
-        return linked.Block;
+        switch (connector.type)
+        {
+            case ConnectorType.Input:
+                return connector.transform.GetSiblingIndex() / 2;
+            case ConnectorType.Output:
+                return connector.transform.GetSiblingIndex();
+            default:
+                return -1;
+        }
     }
 
     public static bool CanConnect(Connector input, Connector output)

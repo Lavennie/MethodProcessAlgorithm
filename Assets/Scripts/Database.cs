@@ -23,6 +23,7 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
     [SerializeField] private Sprite connectorDirection3Sprite;
     [SerializeField] private Sprite connectorPickupSprite;
     [SerializeField] private Sprite connectorEnemySprite;
+    [SerializeField] private Sprite connectorColorSprite;
 
     [Header("Block part prefabs")]
     public Block blockPrefab;
@@ -42,11 +43,16 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
     private Dictionary<BlockID, BlockData> data = new Dictionary<BlockID, BlockData>
     {
         { BlockID.Update, new BlockData("Update", "Control", new ConnectorID[0], new ConnectorID[1] { ConnectorID.FlowNormal })},
-        { BlockID.If, new BlockData("If", "Control", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Bool }, new ConnectorID[2] { ConnectorID.FlowIfTrue, ConnectorID.FlowIfFalse })},
         { BlockID.Move, new BlockData("Move", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Direction2 }, new ConnectorID[1] { ConnectorID.FlowNormal })},
-        { BlockID.LineOfSight, new BlockData("Line of Sight", "Vision", new ConnectorID[0] { }, new ConnectorID[1] { ConnectorID.Bool })},
-        { BlockID.NearestPickup, new BlockData("Nearest pickup", "Vision", new ConnectorID[0] { }, new ConnectorID[1] { ConnectorID.Pickup })},
-        { BlockID.DirectionTo, new BlockData("Direction To", "Vision", new ConnectorID[1] { ConnectorID.Pickup }, new ConnectorID[1] { ConnectorID.Vector2 })},
+        { BlockID.Rotate, new BlockData("Rotate", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Int }, new ConnectorID[1] { ConnectorID.FlowNormal })},
+        { BlockID.RotateToward, new BlockData("Rotate toward", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Direction2 }, new ConnectorID[1] { ConnectorID.FlowNormal })},
+        { BlockID.LineOfSight, new BlockData("Line of Sight", "Data", new ConnectorID[0], new ConnectorID[1] { ConnectorID.Bool })},
+        { BlockID.DirectionTo, new BlockData("Direction To Pickup", "Data", new ConnectorID[0], new ConnectorID[1] { ConnectorID.Vector2 })},
+        { BlockID.OnTrigger, new BlockData("On Trigger", "Control", new ConnectorID[1] { ConnectorID.FlowNormal }, new ConnectorID[2] { ConnectorID.FlowIfTrue, ConnectorID.Color }) },
+        { BlockID.LastTrigger, new BlockData("Last Trigger", "Data", new ConnectorID[0], new ConnectorID[1] { ConnectorID.Color }) },
+        { BlockID.CompareColor, new BlockData("Colors Equal", "Data", new ConnectorID[3] { ConnectorID.FlowNormal, ConnectorID.Color, ConnectorID.Color }, new ConnectorID[2] { ConnectorID.FlowIfTrue, ConnectorID.FlowIfFalse }) },
+        { BlockID.Debug, new BlockData("Debug Color", "Debugging", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Color }, new ConnectorID[0]) },
+        { BlockID.Test, new BlockData("Test", "Debugging", new ConnectorID[3] { ConnectorID.FlowNormal, ConnectorID.Vector2, ConnectorID.Vector2 }, new ConnectorID[1] { ConnectorID.Direction2 }) },
     };
 
     private void Awake()
@@ -88,6 +94,8 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
                 return Instance.connectorPickupSprite;
             case ConnectorID.Enemy:
                 return Instance.connectorEnemySprite;
+            case ConnectorID.Color:
+                return Instance.connectorColorSprite;
             default:
                 return Instance.transparentSprite;
         }
@@ -105,12 +113,17 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
 
 public enum BlockID : uint
 {
-    Update,
+    Update = 0,
     Move,
-    If,
     LineOfSight,
-    NearestPickup,
     DirectionTo,
+    OnTrigger,
+    LastTrigger,
+    Rotate,
+    RotateToward,
+    CompareColor,
+    Debug = 200,
+    Test = Debug + 1,
 }
 public enum ConnectorID : uint
 {
@@ -125,6 +138,7 @@ public enum ConnectorID : uint
     Pickup,
     Enemy,
     Direction2,
+    Color,
 }
 public struct BlockData
 {

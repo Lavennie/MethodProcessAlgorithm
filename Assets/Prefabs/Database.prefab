@@ -55,6 +55,7 @@ MonoBehaviour:
   connectorDirection3Sprite: {fileID: 21300000, guid: 603f231f8c521c249b8431f9c0489c7f, type: 3}
   connectorPickupSprite: {fileID: 21300000, guid: a48dd671bf4a88841a55e3765deb3bb1, type: 3}
   connectorEnemySprite: {fileID: 21300000, guid: 681e97cd37b03ab4aa869576265e7a1b, type: 3}
+  connectorColorSprite: {fileID: 21300000, guid: 37c0139aa792e05428beea8a06136484, type: 3}
   blockPrefab: {fileID: 49030230208450979, guid: a22ed586dbc76c44f84684bf74c291f1, type: 3}
   inputPrefab: {fileID: 4439269770675829793, guid: 3fc6e9a1ba160dd449ad0107f6a9f1a1, type: 3}
   outputPrefab: {fileID: 1316869126268989021, guid: 5a2bdfa137cda23458818dbf3844288d, type: 3}

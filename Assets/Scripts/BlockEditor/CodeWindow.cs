@@ -48,6 +48,7 @@ public class CodeWindow : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
         {
             return;
         }
+        Objective.Instance.StartLevel();
         CodeExecutor.Run(code);
     }
 

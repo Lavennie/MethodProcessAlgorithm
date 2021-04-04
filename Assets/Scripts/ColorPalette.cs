@@ -11,7 +11,7 @@ public class ColorPalette : ScriptableObject
         BackgroundDark,
         ForegroundNormal,
         ForegroundDark,
-        Light,
+        Light1,
         InverseLight,
         FadedLight,
         Copper,
@@ -19,9 +19,13 @@ public class ColorPalette : ScriptableObject
         White,
         HalfOpacityForeground,
         GlowingLight,
+        Light2,
+        Light3
     }
 
-    [SerializeField] private Color light = new Color(0.0f, 1.0f, 0.976f);
+    [SerializeField] private Color light1 = new Color(0.0f, 1.0f, 0.976f);
+    [SerializeField] private Color light2 = new Color(0.0f, 1.0f, 0.976f);
+    [SerializeField] private Color light3 = new Color(0.0f, 1.0f, 0.976f);
     [SerializeField] private Color copper = new Color(0.961f, 0.608f, 0.259f);
     [SerializeField] private Color plastic = new Color(0.005f, 0.839f, 1.0f);
     [SerializeField] private Color bgLight = new Color(0.337f, 0.337f, 0.337f);
@@ -32,18 +36,57 @@ public class ColorPalette : ScriptableObject
 
     [SerializeField] private RecolorObject<Material>[] materials;
 
+    public int usedColor = 0;
+
     public Color GetColorFromSlot(Slot slot)
     {
         switch (slot)
         {
-            case Slot.Light:
-                return light;
+            case Slot.Light1:
+                if (usedColor == 1)
+                {
+                    return light2;
+                }
+                else if (usedColor == 2)
+                {
+                    return light3;
+                }
+                else
+                {
+                    return light1;
+                }
+            case Slot.Light2:
+                if (usedColor == 1)
+                {
+                    return light3;
+                }
+                else if (usedColor == 2)
+                {
+                    return light1;
+                }
+                else
+                {
+                    return light2;
+                }
+            case Slot.Light3:
+                if (usedColor == 1)
+                {
+                    return light1;
+                }
+                else if (usedColor == 2)
+                {
+                    return light2;
+                }
+                else
+                {
+                    return light3;
+                }
             case Slot.InverseLight:
-                return new Color(1.0f - light.r, 1.0f - light.g, 1.0f - light.b, light.a);
+                return new Color(1.0f - light1.r, 1.0f - light1.g, 1.0f - light1.b, light1.a);
             case Slot.FadedLight:
-                return new Color(light.r - 0.3f, light.g - 0.3f, light.b - 0.3f, light.a);
+                return new Color(light1.r - 0.3f, light1.g - 0.3f, light1.b - 0.3f, light1.a);
             case Slot.GlowingLight:
-                return new Color(light.r + 0.7f, light.g + 0.7f, light.b + 0.7f, light.a);
+                return new Color(light1.r + 0.7f, light1.g + 0.7f, light1.b + 0.7f, light1.a);
             case Slot.Copper:
                 return copper;
             case Slot.Plastic:

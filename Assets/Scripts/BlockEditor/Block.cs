@@ -71,6 +71,10 @@ public class Block : MonoBehaviour, IBeginDragHandler, IPointerDownHandler, IPoi
         {
             GetComponent<BlockDrag>().offset = transform.position - Input.mousePosition;
         }
+        for (int i = 0; i < IntegratedParamCount; i++)
+        {
+            InputContainer.GetChild(i * 2 + 1).GetComponent<IntegratedParameter>().enabled = !enabled;
+        }
         GetComponent<BlockDrag>().dragging = enabled;
         this.enabled = !enabled;
     }

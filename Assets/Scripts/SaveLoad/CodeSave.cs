@@ -69,7 +69,7 @@ public class CodeSave
         return converted;
     }
 
-    public BlockSave[] GetFlowBlocks(BlockSave block)
+    public BlockSave[] GetFlowBlocks(BlockSave block, bool type)
     {
         List<BlockSave> flowing = new List<BlockSave>();
         for (int l = 0; l < links.Length; l++)
@@ -79,7 +79,13 @@ public class CodeSave
             if (blocks[links[l].OutputBlockIndex] == block &&
                 Database.Instance[block.ID].Output(links[l].OuputBlockOutputIndex) <= ConnectorID.FlowIfFalse)
             {
-                flowing.Add(blocks[links[l].InputBlockIndex]);
+                // and it fit the type (normal flow, flow when true or flow when false)
+                if ((type == true && (Database.Instance[block.ID].Output(links[l].OuputBlockOutputIndex) == ConnectorID.FlowNormal ||
+                                      Database.Instance[block.ID].Output(links[l].OuputBlockOutputIndex) == ConnectorID.FlowIfTrue)) ||
+                    (type == false && Database.Instance[block.ID].Output(links[l].OuputBlockOutputIndex) == ConnectorID.FlowIfFalse))
+                {
+                    flowing.Add(blocks[links[l].InputBlockIndex]);
+                }
             }
         }
         return flowing.ToArray();
@@ -160,20 +166,3 @@ public class LinkSave
         this.OuputBlockOutputIndex = outputBlockOutputIndex;
     }
 }
-
-/*
-[Serializable]
-public class LinkSave
-{
-    private uint outputIndex;
-    private uint inputIndex;
-
-    public LinkSave(int outputIndex, int inputIndex)
-    {
-        this.outputIndex = outputIndex;
-        this.inputIndex = inputIndex;
-    }
-
-    public uint Output { get { return outputIndex; } }
-    public uint Input { get { return inputIndex; } }
-}*/

@@ -16,6 +16,7 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
     public TMP_InputField[] vector2Input;
     public TMP_InputField[] vector3Input;
     public IntegratedParameterDirection directionInput;
+    public Toggle[] colorInput;
 
     private float closeHeight;
     private bool open = false;
@@ -66,7 +67,7 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
                 break;
             case ConnectorID.Bool:
                 boolInput.transform.parent.gameObject.SetActive(true);
-                boolInput.isOn = ((ParamBool)paramValue).GetValue();
+                boolInput.isOn = (paramValue != null) ? ((ParamBool)paramValue).GetValue() : false;
                 break;
             case ConnectorID.Vector2:
                 vector2Input[0].transform.parent.gameObject.SetActive(true);
@@ -87,6 +88,36 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
                 directionInput.SetX((paramValue != null) ? ((ParamVector2)paramValue).GetValue()[0] : 0.0f);
                 directionInput.SetY((paramValue != null) ? ((ParamVector2)paramValue).GetValue()[1] : 0.0f);
                 break;
+            case ConnectorID.Color:
+                colorInput[0].transform.parent.gameObject.SetActive(true);
+                if (paramValue != null)
+                {
+                    switch (((ParamColor)paramValue).GetValue())
+                    {
+                        case TriggerPlate.TriggerColor.Yellow:
+                            colorInput[0].isOn = true;
+                            colorInput[1].isOn = false;
+                            colorInput[1].isOn = false;
+                            break;
+                        case TriggerPlate.TriggerColor.Red:
+                            colorInput[0].isOn = false;
+                            colorInput[1].isOn = true;
+                            colorInput[1].isOn = false;
+                            break;
+                        case TriggerPlate.TriggerColor.Blue:
+                            colorInput[0].isOn = false;
+                            colorInput[1].isOn = false;
+                            colorInput[1].isOn = true;
+                            break;
+                    }
+                }
+                else
+                {
+                    colorInput[0].isOn = true;
+                    colorInput[1].isOn = false;
+                    colorInput[1].isOn = false;
+                }
+                break;
             default:
                 Debug.LogError(type + " is not an implemented type for integrated parameters", this);
                 break;
@@ -99,7 +130,8 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (HasIntegratedParam)
+        if (HasIntegratedParam &&
+            !Link.IsConnectorConnected(transform.parent.GetChild(transform.GetSiblingIndex() - 1).GetComponent<Connector>()))
         {
             open = true;
         }
@@ -113,7 +145,7 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
     {
         if (integerInput.IsActive())
         {
-            return new ParamInteger(int.Parse(integerInput.textComponent.text));
+            return new ParamInteger(int.Parse(integerInput.textComponent.text.Trim((char)8203)));
         }
         else if (floatInput.IsActive())
         {
@@ -137,9 +169,28 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
                                     float.Parse(vector3Input[1].text.Trim((char)8203)),
                                     float.Parse(vector3Input[2].text.Trim((char)8203)));
         }
-        else if (directionInput.enabled)
+        else if (directionInput.gameObject.activeInHierarchy)
         {
             return new ParamVector2(directionInput.GetX(), directionInput.GetY());
+        }
+        else if (colorInput[0].IsActive() && colorInput[1].IsActive() && colorInput[2].IsActive())
+        {
+            if (colorInput[0].isOn)
+            {
+                return new ParamColor(TriggerPlate.TriggerColor.Yellow);
+            }
+            else if (colorInput[1].isOn)
+            {
+                return new ParamColor(TriggerPlate.TriggerColor.Red);
+            }
+            else if (colorInput[2].isOn)
+            {
+                return new ParamColor(TriggerPlate.TriggerColor.Blue);
+            }
+            else
+            {
+                return new ParamColor(TriggerPlate.TriggerColor.None);
+            }
         }
         else
         {
@@ -156,7 +207,8 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
                 boolInput.IsActive() ||
                 (vector2Input[0].IsActive() && vector2Input[1].IsActive()) ||
                 (vector3Input[0].IsActive() && vector3Input[1].IsActive() && vector3Input[2].IsActive()) ||
-                directionInput.gameObject.activeInHierarchy;
+                directionInput.gameObject.activeInHierarchy ||
+                (colorInput[0].IsActive() && colorInput[1].IsActive() && colorInput[2].IsActive());
         }
     }
 }

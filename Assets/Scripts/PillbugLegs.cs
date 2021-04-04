@@ -56,11 +56,17 @@ public sealed class PillbugLegs : MonoBehaviour
             {
                 float a1 = -Mathf.Acos((d1 * d1 + dEnd * dEnd - d2 * d2) / (2 * d1 * dEnd)) * Mathf.Rad2Deg + 90.0f;
                 float a2 = a1 - Mathf.Acos((d1 * d1 + d2 * d2 - dEnd * dEnd) / (2 * d1 * d2)) * Mathf.Rad2Deg - 180.0f;
-                Vector3 up1 = Vector3.Cross(Quaternion.AngleAxis(a1, axis) * end.normalized, axis);
-                Vector3 up2 = Vector3.Cross(Quaternion.AngleAxis(a2, axis) * end.normalized, axis);
 
-                leg.chain[0].rotation = Quaternion.LookRotation(Quaternion.AngleAxis(a1, axis) * end.normalized, up1);
-                leg.chain[1].rotation = Quaternion.LookRotation(Quaternion.AngleAxis(a2, axis) * end.normalized, up2);
+                if (!float.IsNaN(a1) && !float.IsNaN(a2))
+                {
+                    Vector3 lookDir1 = Quaternion.AngleAxis(a1, axis) * end.normalized;
+                    Vector3 lookDir2 = Quaternion.AngleAxis(a2, axis) * end.normalized;
+                    Vector3 up1 = Vector3.Cross(lookDir1, axis);
+                    Vector3 up2 = Vector3.Cross(lookDir2, axis);
+
+                    leg.chain[0].rotation = Quaternion.LookRotation(lookDir1, up1);
+                    leg.chain[1].rotation = Quaternion.LookRotation(lookDir2, up2);
+                }
             }
             leg.chain[2].rotation = transform.rotation * Quaternion.Euler(0, 90, 180);
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class CodeBlockMenuEntry : MonoBehaviour, IPointerClickHandler
+public class CodeBlockMenuEntry : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private BlockID id;
 
@@ -15,6 +15,7 @@ public class CodeBlockMenuEntry : MonoBehaviour, IPointerClickHandler
         CodeBlockMenuEntry entry = Instantiate(Database.Instance.menuBlockEntryPrefab, parent);
         entry.id = id;
         entry.Text.text = data.Name;
+        ((RectTransform)entry.transform).anchoredPosition = new Vector2(0, (parent.childCount - 1) * -((RectTransform)entry.transform).sizeDelta.y);
         return entry;
     }
 
@@ -22,7 +23,25 @@ public class CodeBlockMenuEntry : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Block.InstantiateBlock(id, eventData.position, null).SetDragging(true);
+            Block.InstantiateBlock(id, eventData.position, null).SetDragging(true, true);
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            Block.InstantiateBlock(id, eventData.position, null).SetDragging(true, true);
+        }
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            CodeBlocks.StopDragging();
         }
     }
 

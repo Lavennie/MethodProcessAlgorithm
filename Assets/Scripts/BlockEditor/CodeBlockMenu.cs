@@ -8,6 +8,7 @@ public class CodeBlockMenu : MonoBehaviour
 {
     private void OnEnable()
     {
+        Container.DetachChildren();
         foreach (var block in Database.Instance)
         {
             CodeBlockMenuEntry.InstantiateMenuEntry(block.Key, Container);

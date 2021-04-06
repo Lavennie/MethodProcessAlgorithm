@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
     public float speedInThisFrame;
 
+    [SerializeField] private Transform directionArrow;
+
     private CharacterController cc;
     private Transform dummy;
 
@@ -16,8 +18,7 @@ public class Player : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         dummy = new GameObject("Player Move Dummy").transform;
-        dummy.position = transform.position;
-        dummy.rotation = transform.rotation;
+        ResetDummy();
     }
 
     private void Update()
@@ -56,6 +57,14 @@ public class Player : MonoBehaviour
         speedInThisFrame = direction.magnitude * moveSpeed;
         cc.Move((direction * moveSpeed + Physics.gravity) * Time.deltaTime);
         dummy.position = transform.position;
+
+        directionArrow.forward = direction;
+    }
+
+    public void ResetDummy()
+    {
+        dummy.position = transform.position;
+        dummy.rotation = transform.rotation;
     }
 
     public SkinnedMeshRenderer Mesh { get { return transform.GetChild(0).GetComponent<SkinnedMeshRenderer>(); } }

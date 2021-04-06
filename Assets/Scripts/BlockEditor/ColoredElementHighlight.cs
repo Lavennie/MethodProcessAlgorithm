@@ -13,16 +13,17 @@ public class ColoredElementHighlight : MonoBehaviour
     }
     public void Highlight()
     {
-        foreach (var graphic in graphics)
-        {
-            graphic.color = Database.GetColor(litColor);
-        }
+        SetCustomColor(litColor);
     }
     public void Unhighlight()
     {
+        SetCustomColor(restColor);
+    }
+    public void SetCustomColor(ColorPalette.Slot slot)
+    {
         foreach (var graphic in graphics)
         {
-            graphic.color = Database.GetColor(restColor);
+            graphic.color = Database.GetColor(slot);
         }
     }
 }

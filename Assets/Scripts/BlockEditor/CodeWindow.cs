@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEditor;
 using TMPro;
 
 public class CodeWindow : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -18,22 +15,7 @@ public class CodeWindow : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
     {
         if (Input.GetKeyDown(KeyCode.Delete))
         {
-            List<Block> deleted = new List<Block>();
-            for (int i = 0; i < Blocks.BlockCount; i++)
-            {
-                if (Blocks[i].IsSelected)
-                {
-                    deleted.Add(Blocks[i]);
-                    Destroy(Blocks[i].gameObject);
-                }
-            }
-            for (int i = 0; i < Links.LinkCount; i++)
-            {
-                if (deleted.Contains(Links[i].Input.Block) || deleted.Contains(Links[i].Output.Block))
-                {
-                    Destroy(Links[i].gameObject);
-                }
-            }
+            CodeBlocks.DeleteBlocks(CodeBlocks.GetSelectedBlocks());
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -43,41 +25,54 @@ public class CodeWindow : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
 
     public void Run()
     {
-        CodeSave code = CodeSave.LoadForExecute("saveData1.save");
+        CodeSave code = CodeSave.LoadForExecute($"saveData{LevelManager.CurLevelNumber()}.save");
         if (code == null)
         {
             return;
         }
-        Objective.Instance.StartLevel();
         CodeExecutor.Run(code);
     }
-
-    public void Scale(float value)
+    public void Stop()
     {
-        ZoomText.text = string.Format("Zoom: {0}x", value);
+        LevelManager.ReloadLevel();
     }
+
     public void Save()
     {
-        Debug.Log("Save to saveData1.save");
-        CodeSave.Save(this, "saveData1.save");
+        CodeSave.Save(this, $"saveData{LevelManager.CurLevelNumber()}.save");
     }
     public void Load()
     {
-        Debug.Log("Load from saveData1.save");
         Blocks.transform.DetachChildren();
         Links.transform.DetachChildren();
-        CodeSave.Load(this, "saveData1.save");
+        CodeSave.Load(this, $"saveData{LevelManager.CurLevelNumber()}.save");
+        CodeBlocks.UpdateAllBlocksHighlight();
+    }
+    public void Clear()
+    {
+        CodeSave.ClearSave($"saveData{LevelManager.CurLevelNumber()}.save");
+        Load();
+    }
+    public void ToMainMenu()
+    {
+        LevelManager.LoadMainMenu();
     }
 
     public void Show()
     {
+        LevelManager.ReloadLevel();
         gameObject.SetActive(true);
+        transform.parent.GetChild(0).gameObject.SetActive(false);
+        transform.parent.GetChild(1).gameObject.SetActive(false);
         Load();
+        CodeBlocks.UpdateAllBlocksHighlight();
     }
     public void Hide()
     {
         Save();
         gameObject.SetActive(false);
+        transform.parent.GetChild(0).gameObject.SetActive(true);
+        transform.parent.GetChild(1).gameObject.SetActive(true);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -91,8 +86,19 @@ public class CodeWindow : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Selector.gameObject.SetActive(true);
-        Selector.transform.position = eventData.position;
+        if (eventData.button == PointerEventData.InputButton.Left ||
+            eventData.button == PointerEventData.InputButton.Right)
+        {
+            Selector.gameObject.SetActive(true);
+            Selector.transform.position = eventData.position;
+        }
+        else if (eventData.button == PointerEventData.InputButton.Middle)
+        {
+            foreach (var block in Blocks.GetBlocks())
+            {
+                block.SetDragging(true, false);
+            }
+        }
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -100,34 +106,40 @@ public class CodeWindow : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        Selector.gameObject.SetActive(false);
-        CodeBlocks.DeselectAll();
-        foreach (var block in Blocks.GetBlocks())
+        // select all blocks in area
+        if (eventData.button == PointerEventData.InputButton.Left ||
+            eventData.button == PointerEventData.InputButton.Right)
         {
-            Rect r1 = new Rect((Vector2)block.transform.position + ((RectTransform)block.transform).rect.min, ((RectTransform)block.transform).rect.size);
-            Rect r2 = new Rect(Mathf.Min(Selector.position.x, eventData.position.x), Mathf.Min(Selector.position.y, eventData.position.y),
+            Selector.gameObject.SetActive(false);
+            CodeBlocks.DeselectAll();
+            Rect r1 = new Rect(Mathf.Min(Selector.position.x, eventData.position.x), Mathf.Min(Selector.position.y, eventData.position.y),
                 Mathf.Abs(Selector.position.x - eventData.position.x), Mathf.Abs(Selector.position.y - eventData.position.y));
-            if (!(r1.min.x > r2.max.x || r1.min.y > r2.max.y || r2.min.x > r1.max.x || r2.min.y > r1.max.y))
+            foreach (var block in Blocks.GetBlocks())
             {
-                block.SetSelected(true);
+                Rect r2 = new Rect((Vector2)block.transform.position + ((RectTransform)block.transform).rect.min, ((RectTransform)block.transform).rect.size);
+                if (!(r2.min.x > r1.max.x || r2.min.y > r1.max.y || r1.min.x > r2.max.x || r1.min.y > r2.max.y))
+                {
+                    block.SetSelected(true);
+                }
             }
-            else
+            // delete all blocks selected anew with area
+            if (eventData.button == PointerEventData.InputButton.Right)
             {
+                CodeBlocks.DeleteBlocks(CodeBlocks.GetSelectedBlocks());
             }
+        }
+        else if (eventData.button == PointerEventData.InputButton.Middle)
+        {
+            CodeBlocks.StopDragging();
         }
     }
 
-
     public Image Background { get { return GetComponent<Image>(); } }
-    public CodeBlockMenu Menu { get { return transform.GetChild(0).GetComponent<CodeBlockMenu>(); } }
-    public CodeLinks Links { get { return transform.GetChild(1).GetComponent<CodeLinks>(); } }
-    public CodeBlocks Blocks { get { return transform.GetChild(2).GetComponent<CodeBlocks>(); } }
-    public Transform Selector { get { return transform.GetChild(3); } }
-    public Slider Zoom { get { return transform.GetChild(4).GetChild(0).GetComponent<Slider>(); } }
-    public TextMeshProUGUI ZoomText { get { return transform.GetChild(4).GetChild(1).GetComponent<TextMeshProUGUI>(); } }
-    public Transform Buttons { get { return transform.GetChild(5); } }
-    public Button ButtonSave { get { return Buttons.GetChild(0).GetComponent<Button>(); } }
-    public Button ButtonLoad { get { return Buttons.GetChild(1).GetComponent<Button>(); } }
+    public CodeLinks Links { get { return transform.GetChild(0).GetComponent<CodeLinks>(); } }
+    public CodeBlocks Blocks { get { return transform.GetChild(1).GetComponent<CodeBlocks>(); } }
+    public Transform Selector { get { return transform.GetChild(2); } }
+    public CodeBlockMenu Menu { get { return transform.GetChild(3).GetComponent<CodeBlockMenu>(); } }
+    public Transform DraggedBlocks { get { return transform.GetChild(4); } }
 
     public static CodeWindow Instance { get { return Database.Instance?.CodeWindow; } }
 }

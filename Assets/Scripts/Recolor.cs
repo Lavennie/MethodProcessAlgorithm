@@ -24,5 +24,9 @@ public class Recolor : MonoBehaviour
         {
             instance.palette.GetMaterial(i).obj.color = instance.palette.GetColorFromSlot(instance.palette.GetMaterial(i).colorSlot);
         }
+        for (int i = 0; i < instance.palette.TextMaterialCount; i++)
+        {
+            instance.palette.GetTextMaterial(i).obj.SetColor("_UnderlayColor", instance.palette.GetColorFromSlot(instance.palette.GetTextMaterial(i).colorSlot));
+        }
     }
 }

@@ -7,6 +7,13 @@ using UnityEngine.UI;
 
 public class Block : MonoBehaviour, IBeginDragHandler, IPointerDownHandler, IPointerUpHandler
 {
+    public enum HighlightOption
+    {
+        Disabled,
+        Enabled,
+        Error,
+    }
+
     private BlockID id;
     private bool clicked = false;
 
@@ -61,7 +68,7 @@ public class Block : MonoBehaviour, IBeginDragHandler, IPointerDownHandler, IPoi
         return InputContainer.GetChild(i * 2 + 1).GetComponent<IntegratedParameter>().GetValue();
     }
 
-    public void SetDragging(bool enabled)
+    public void SetDragging(bool enabled, bool bringFront)
     {
         if (GetComponent<BlockDrag>().dragging == enabled)
         {
@@ -77,6 +84,18 @@ public class Block : MonoBehaviour, IBeginDragHandler, IPointerDownHandler, IPoi
         }
         GetComponent<BlockDrag>().dragging = enabled;
         this.enabled = !enabled;
+
+        if (enabled)
+        {
+            if (bringFront)
+            {
+                transform.SetParent(CodeWindow.Instance.DraggedBlocks, false);
+            }
+        }
+        else
+        {
+            transform.SetParent(CodeWindow.Instance.Blocks.transform, false);
+        }
     }
     public void SetSelected(bool selected)
     {
@@ -93,13 +112,36 @@ public class Block : MonoBehaviour, IBeginDragHandler, IPointerDownHandler, IPoi
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (clicked && eventData.button == PointerEventData.InputButton.Left)
+        if (clicked)
         {
-            if (!Input.GetKey(KeyCode.LeftShift))
+            if (eventData.button == PointerEventData.InputButton.Left)
             {
-                CodeBlocks.DeselectAll();
+                if (!Input.GetKey(KeyCode.LeftShift))
+                {
+                    CodeBlocks.DeselectAll();
+                }
+                SetSelected(!IsSelected);
             }
-            SetSelected(!IsSelected);
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                CodeBlocks.DeleteBlocks(new Block[1] { this });
+            }
+        }
+    }
+
+    public void SetHighlightOption(HighlightOption option)
+    {
+        switch (option)
+        {
+            case HighlightOption.Disabled:
+                GetComponent<ColoredElementHighlight>().Unhighlight();
+                break;
+            case HighlightOption.Enabled:
+                GetComponent<ColoredElementHighlight>().Highlight();
+                break;
+            case HighlightOption.Error:
+                GetComponent<ColoredElementHighlight>().SetCustomColor(ColorPalette.Slot.LightError);
+                break;
         }
     }
 
@@ -111,11 +153,11 @@ public class Block : MonoBehaviour, IBeginDragHandler, IPointerDownHandler, IPoi
     public bool IsSelected { get { return Outline.gameObject.activeSelf; } }
 
     public Image Outline { get { return transform.GetChild(0).GetComponent<Image>(); } }
-    public Image Background { get { return transform.GetChild(1).GetComponent<Image>(); } }
-    public Image Group { get { return transform.GetChild(2).GetComponent<Image>(); } }
+    public Image Background { get { return transform.GetChild(2).GetComponent<Image>(); } }
+    public Image Group { get { return transform.GetChild(3).GetComponent<Image>(); } }
     public TextMeshProUGUI GroupText { get { return Group.transform.GetChild(0).GetComponent<TextMeshProUGUI>(); } }
-    public TextMeshProUGUI NameText { get { return transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>(); } }
-    public Transform InputContainer { get { return transform.GetChild(4); } }
-    public Transform OutputContainer { get { return transform.GetChild(5); } }
-    public Transform Lights { get { return transform.GetChild(6); } }
+    public TextMeshProUGUI NameText { get { return transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>(); } }
+    public Transform InputContainer { get { return transform.GetChild(5); } }
+    public Transform OutputContainer { get { return transform.GetChild(6); } }
+    public Transform Lights { get { return transform.GetChild(7); } }
 }

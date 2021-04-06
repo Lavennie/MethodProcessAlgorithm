@@ -49,6 +49,20 @@ public class CodeLinks : MonoBehaviour
         return false;
     }
 
+    public static Link[] GetConnectorLinks(Connector connector)
+    {
+        List<Link> links = new List<Link>();
+        foreach (var link in Instance.GetLinks())
+        {
+            if ((connector.Type == ConnectorType.Input && link.Input == connector) ||
+                (connector.Type == ConnectorType.Output && link.Output == connector))
+            {
+                links.Add(link);
+            }
+        }
+        return links.ToArray();
+    }
+
     public int LinkCount { get { return transform.childCount; } }
     public Link this[int i] { get { return transform.GetChild(i).GetComponent<Link>(); } }
 

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ColorPalette
   m_EditorClassIdentifier: 
   light1: {r: 1, g: 0.8117647, b: 0, a: 1}
-  light2: {r: 1, g: 0.07453532, b: 0, a: 1}
+  light2: {r: 0, g: 1, b: 0, a: 1}
   light3: {r: 0, g: 1, b: 0.976, a: 1}
+  lightError: {r: 1, g: 0, b: 0, a: 1}
   copper: {r: 0.961, g: 0.608, b: 0.259, a: 1}
   plastic: {r: 0.2747864, g: 0.7917365, b: 0.8962264, a: 1}
   bgLight: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -43,3 +44,21 @@ MonoBehaviour:
     obj: {fileID: 2100000, guid: 4363efde23e33a443a024f2dd2fe53db, type: 2}
   - colorSlot: 6
     obj: {fileID: 2100000, guid: 2d925d77d1066d94fafa19c683f5d6ad, type: 2}
+  - colorSlot: 17
+    obj: {fileID: 2100000, guid: 24feea0bd465f59428f758fcd41be95d, type: 2}
+  - colorSlot: 18
+    obj: {fileID: 2100000, guid: f9523e70913cd634a9be0137717ccc5a, type: 2}
+  - colorSlot: 19
+    obj: {fileID: 2100000, guid: c07905e85acf67f4cbf6afde75e8e998, type: 2}
+  textOutlines:
+  - colorSlot: 3
+    obj: {fileID: 2100000, guid: bbce9049da3f2a74a8f767f41dd61eca, type: 2}
+  - colorSlot: 5
+    obj: {fileID: 2100000, guid: 8b6ea117bc6ef2c48905e8be3846f1b6, type: 2}
+  - colorSlot: 5
+    obj: {fileID: 2100000, guid: 454bd26dc92e3c040b48db791f63a913, type: 2}
+  - colorSlot: 3
+    obj: {fileID: -4836811515534386973, guid: fd6e3400a34dd7b44a84101969e3b864, type: 2}
+  - colorSlot: 1
+    obj: {fileID: 2100000, guid: 54ceaf0243902a946b747bc9ff8b3fda, type: 2}
+  usedColor: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, BlockData>>
 {
     public const float CIRCUIT_WIDTH = 3.0f;
-    public const float CIRCUIT_DOT_RADIUS = 8.0f;
+    public const float CIRCUIT_DOT_RADIUS = 16.0f;
 
     private static Database instance;
 
@@ -33,6 +33,9 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
     public CodeBlockMenuEntry menuBlockEntryPrefab;
     public Link linkPrefab;
 
+    [Header("Particle systems")]
+    public ParticleSystem pickupPS;
+
     [Header("In scene references")]
     [SerializeField] private CodeWindow codeWindow;
     [SerializeField] private CodeExecutor codeExecutor;
@@ -44,15 +47,12 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
     {
         { BlockID.Update, new BlockData("Update", "Control", new ConnectorID[0], new ConnectorID[1] { ConnectorID.FlowNormal })},
         { BlockID.Move, new BlockData("Move", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Direction2 }, new ConnectorID[1] { ConnectorID.FlowNormal })},
-        { BlockID.Rotate, new BlockData("Rotate", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Int }, new ConnectorID[1] { ConnectorID.FlowNormal })},
+        { BlockID.Rotate, new BlockData("Rotate", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Angle }, new ConnectorID[1] { ConnectorID.FlowNormal })},
         { BlockID.RotateToward, new BlockData("Rotate toward", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Direction2 }, new ConnectorID[1] { ConnectorID.FlowNormal })},
-        { BlockID.LineOfSight, new BlockData("Line of Sight", "Data", new ConnectorID[0], new ConnectorID[1] { ConnectorID.Bool })},
         { BlockID.DirectionTo, new BlockData("Direction To Pickup", "Data", new ConnectorID[0], new ConnectorID[1] { ConnectorID.Vector2 })},
         { BlockID.OnTrigger, new BlockData("On Trigger", "Control", new ConnectorID[1] { ConnectorID.FlowNormal }, new ConnectorID[2] { ConnectorID.FlowIfTrue, ConnectorID.Color }) },
         { BlockID.LastTrigger, new BlockData("Last Trigger", "Data", new ConnectorID[0], new ConnectorID[1] { ConnectorID.Color }) },
         { BlockID.CompareColor, new BlockData("Colors Equal", "Data", new ConnectorID[3] { ConnectorID.FlowNormal, ConnectorID.Color, ConnectorID.Color }, new ConnectorID[2] { ConnectorID.FlowIfTrue, ConnectorID.FlowIfFalse }) },
-        { BlockID.Debug, new BlockData("Debug Color", "Debugging", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Color }, new ConnectorID[0]) },
-        { BlockID.Test, new BlockData("Test", "Debugging", new ConnectorID[3] { ConnectorID.FlowNormal, ConnectorID.Vector2, ConnectorID.Vector2 }, new ConnectorID[1] { ConnectorID.Direction2 }) },
     };
 
     private void Awake()
@@ -79,7 +79,7 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
                 return Instance.connectorFlowTrueSprite;
             case ConnectorID.FlowIfFalse:
                 return Instance.connectorFlowFalseSprite;
-            case ConnectorID.Int:
+            case ConnectorID.Angle:
                 return Instance.connectorNumberSprite;
             case ConnectorID.Float:
                 return Instance.connectorNumberSprite;
@@ -115,22 +115,20 @@ public enum BlockID : uint
 {
     Update = 0,
     Move,
-    LineOfSight,
+    Rotate,
+    RotateToward,
     DirectionTo,
     OnTrigger,
     LastTrigger,
-    Rotate,
-    RotateToward,
     CompareColor,
     Debug = 200,
-    Test = Debug + 1,
 }
 public enum ConnectorID : uint
 {
     FlowNormal,
     FlowIfTrue,
     FlowIfFalse,
-    Int,
+    Angle,
     Float,
     Bool,
     Vector2,

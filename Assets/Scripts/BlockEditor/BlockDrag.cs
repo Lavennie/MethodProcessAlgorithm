@@ -25,7 +25,7 @@ public class BlockDrag : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            GetComponent<Block>().SetDragging(false);
+            GetComponent<Block>().SetDragging(false, false);
         }
     }
     public void OnBeginDrag(PointerEventData eventData)

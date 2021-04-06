@@ -29,7 +29,7 @@ public class EndScreen : MonoBehaviour
     }
     public void NextLevel()
     {
-        Debug.Log("NEXT level");
+        LevelManager.LoadLevel(LevelManager.CurLevelNumber() + 1);
     }
 
     private ColoredElementButton Replay { get { return transform.GetChild(0).GetComponent<ColoredElementButton>(); } }

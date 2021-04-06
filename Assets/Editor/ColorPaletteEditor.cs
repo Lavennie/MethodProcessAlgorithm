@@ -32,6 +32,10 @@ public class ColorPaletteEditor : Editor
                     }
                 }
             }
+            for (int i = 0; i < cp.TextMaterialCount; i++)
+            {
+                cp.GetTextMaterial(i).obj.SetColor("_UnderlayColor", cp.GetColorFromSlot(cp.GetTextMaterial(i).colorSlot));
+            }
         }
     }
 }

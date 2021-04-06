@@ -9,9 +9,24 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 7bcc6451de610d9428cbeee295f909ee
   - enabled: 1
-    path: Assets/Scenes/Level Pick balls.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 9cb409a8eb84f774caabef00fcee8512
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: c15b097eae1d0ce498e3b4a62c8448e3
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: 486bf351900fa2a4f8b6677a10c9a00f
+  - enabled: 1
+    path: Assets/Scenes/Level 4.unity
+    guid: 595bee143036a22469b686bd2a47e89d
+  - enabled: 1
+    path: Assets/Scenes/Level 5.unity
+    guid: 57be3b62c8029414199006452e4e97e8
+  - enabled: 1
+    path: Assets/Scenes/Level 6.unity
+    guid: d94b735fe5c3e744086c952bcc29b8e5
+  - enabled: 1
+    path: Assets/Scenes/Level 7.unity
+    guid: f4200433a08cc6746a3695500b5b1d04
   m_configObjects: {}

@@ -50,17 +50,6 @@ public class Link : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
         return link;
     }
-    public static bool IsConnectorConnected(Connector connector)
-    {
-        foreach (var link in CodeWindow.Instance.Links.GetLinks())
-        {
-            if (link.Input == connector || link.Input == connector)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public bool TryConnect(Connector to)
     {
@@ -80,6 +69,8 @@ public class Link : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         if (Connector.CanConnect(input, output))
         {
             CollisionEnabled = true;
+            Unhighlight();
+            CodeBlocks.UpdateAllBlocksHighlight();
             return true;
         }
         else
@@ -107,15 +98,24 @@ public class Link : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (Vector2.Distance(eventData.position, input.transform.position) < Vector2.Distance(eventData.position, output.transform.position))
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            input = null;
+            if (Vector2.Distance(eventData.position, input.transform.position) < Vector2.Distance(eventData.position, output.transform.position))
+            {
+                input = null;
+            }
+            else
+            {
+                output = null;
+            }
+            CollisionEnabled = false;
+            CodeBlocks.UpdateAllBlocksHighlight();
         }
-        else
+        else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            output = null;
+            DestroyImmediate(gameObject);
+            CodeBlocks.UpdateAllBlocksHighlight();
         }
-        CollisionEnabled = false;
     }
 
     public bool CollisionEnabled

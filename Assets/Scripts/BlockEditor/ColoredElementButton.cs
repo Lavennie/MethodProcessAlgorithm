@@ -9,7 +9,7 @@ public class ColoredElementButton : MonoBehaviour, IPointerEnterHandler, IPointe
     [SerializeField] private ColorPalette.Slot textColor = ColorPalette.Slot.BackgroundNormal;
     [SerializeField] private ColorPalette.Slot restColor = ColorPalette.Slot.ForegroundNormal;
     [SerializeField] private ColorPalette.Slot hoverColor = ColorPalette.Slot.Light1;
-    [SerializeField] private ColorPalette.Slot pressColor = ColorPalette.Slot.FadedLight;
+    [SerializeField] private ColorPalette.Slot pressColor = ColorPalette.Slot.FadedLight1;
 
     public UnityEvent onClick;
 
@@ -33,6 +33,7 @@ public class ColoredElementButton : MonoBehaviour, IPointerEnterHandler, IPointe
     }
     public void OnPointerUp(PointerEventData eventData)
     {
+        AudioManager.PlaySoundEffect(AudioManager.SoundEffects.ButtonClick);
         onClick.Invoke();
         GetComponent<Image>().color = Database.GetColor(hoverColor);
     }

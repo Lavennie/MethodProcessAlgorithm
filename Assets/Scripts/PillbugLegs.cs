@@ -15,11 +15,14 @@ public sealed class PillbugLegs : MonoBehaviour
 
     [SerializeField] private Leg[] legs;
 
+    private bool[] playedSoundInThisLoop;
+
     private Player player;
 
     private void Awake()
     {
         player = GetComponent<Player>();
+        playedSoundInThisLoop = new bool[legs.Length];
         foreach (var leg in legs)
         {
             leg.originalPosition = leg.ik.localPosition;
@@ -28,8 +31,27 @@ public sealed class PillbugLegs : MonoBehaviour
 
     private void Update()
     {
-        foreach (var leg in legs)
+        for (int i = 0; i < legs.Length; i++)
         {
+            Leg leg = legs[i];
+
+            // play step sfx
+            if (player.speedInThisFrame > 0)
+            {
+                if (playedSoundInThisLoop[i] == false)
+                {
+                    if (liftCurve.Evaluate(Mathf.Repeat(loopPoint + leg.pointInLoop, 1.0f)) == 0)
+                    {
+                        AudioManager.PlaySoundEffect(AudioManager.SoundEffects.PillbugStep);
+                        playedSoundInThisLoop[i] = true;
+                    }
+                }
+                else if(liftCurve.Evaluate(Mathf.Repeat(loopPoint + leg.pointInLoop, 1.0f)) > 0)
+                {
+                    playedSoundInThisLoop[i] = false;
+                }
+            }
+
             if (player.speedInThisFrame == 0)
             {
                 leg.ik.localPosition = leg.originalPosition;

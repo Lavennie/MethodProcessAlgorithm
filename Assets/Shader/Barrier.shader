@@ -72,7 +72,8 @@ Shader "Unlit/Barrier" {
             fixed4 frag(v2f i) : SV_Target
             {
                 float dist = _Distance - distance(_PlayerPos, i.worldSpacePos);
-                fixed4 col = tex2D(_MainTex, float2((i.worldSpacePos.x + i.worldSpacePos.z) / _SizeW, i.worldSpacePos.y / _SizeH));
+                //fixed4 col = tex2D(_MainTex, float2((i.worldSpacePos.x + i.worldSpacePos.z) / _SizeW, i.worldSpacePos.y / _SizeH));
+                fixed4 col = float4(1, 1, 1, 1);
                 if (i.worldSpacePos.y > _Height)
                 {
                     col.a = 0.0;

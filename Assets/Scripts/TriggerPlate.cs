@@ -27,15 +27,12 @@ public class TriggerPlate : MonoBehaviour
         switch (color)
         {
             case TriggerColor.Yellow:
-                Debug.Log(color);
                 Recolor.RefreshColors(0);
                 break;
             case TriggerColor.Red:
-                Debug.Log(color);
                 Recolor.RefreshColors(1);
                 break;
             case TriggerColor.Blue:
-                Debug.Log(color);
                 Recolor.RefreshColors(2);
                 break;
         }

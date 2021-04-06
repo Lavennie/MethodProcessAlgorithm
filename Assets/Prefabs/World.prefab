@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4376008911079033233}
   - component: {fileID: 4376008911079033232}
   - component: {fileID: 4686401944567318868}
+  - component: {fileID: 3232106207360648167}
   - component: {fileID: 5833273482352490017}
   m_Layer: 0
   m_Name: World
@@ -69,6 +70,7 @@ MonoBehaviour:
   integratedParamPrefab: {fileID: -1414193502228395731, guid: 456de78fdd2a417469a7d4e4add7ba43, type: 3}
   menuBlockEntryPrefab: {fileID: 5132094618051985505, guid: 393965a317602ab49928e906820594b3, type: 3}
   linkPrefab: {fileID: -7885143666839943631, guid: c93fb2b0ed75139498beaef0fd7db799, type: 3}
+  pickupPS: {fileID: 8072825695071624807, guid: 7cc0f17d929488941a07491e3eae2e12, type: 3}
   codeWindow: {fileID: 0}
   codeExecutor: {fileID: 0}
   objective: {fileID: 4686401944567318868}
@@ -86,7 +88,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce5ecce12f0332f4c9d3e4f796cc8b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelAddons: []
+--- !u!114 &3232106207360648167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376008911079033239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ceec3e52d11e7945926d2e3bf9af8fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5833273482352490017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   palette: {fileID: 11400000, guid: 91a9fe4d4d01c8c43a3528502a9b2644, type: 2}
+  canvas: {fileID: 0}
 --- !u!1 &5884583880377764878
 GameObject:
   m_ObjectHideFlags: 0

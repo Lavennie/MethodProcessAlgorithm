@@ -10,6 +10,24 @@ public class CodeSave
     private BlockSave[] blocks;
     private LinkSave[] links;
 
+    public static void ClearSave(string fileName)
+    {
+        Directory.CreateDirectory(Application.streamingAssetsPath + "/Save data/");
+
+        CodeSave save = new CodeSave();
+        save.blocks = new BlockSave[1]
+        {
+            new BlockSave(BlockID.Update, 
+            new Vector2(((RectTransform)CodeWindow.Instance.Menu.transform).sizeDelta.x + 200, Screen.height -100), 
+            new Parameter[0])
+        };
+        save.links = new LinkSave[0];
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(Application.streamingAssetsPath + "/Save data/" + fileName, FileMode.OpenOrCreate);
+        bf.Serialize(file, save);
+        file.Close();
+    }
     public static void Save(CodeWindow code, string fileName)
     {
         Directory.CreateDirectory(Application.streamingAssetsPath + "/Save data/");
@@ -45,6 +63,10 @@ public class CodeSave
     public static void Load(CodeWindow code, string fileName)
     {
         BinaryFormatter bf = new BinaryFormatter();
+        if (!File.Exists(Application.streamingAssetsPath + "/Save data/" + fileName))
+        {
+            ClearSave(fileName);
+        }
         FileStream file = File.Open(Application.streamingAssetsPath + "/Save data/" + fileName, FileMode.Open);
         CodeSave converted = (CodeSave)bf.Deserialize(file);
         file.Close();
@@ -61,6 +83,11 @@ public class CodeSave
     }
     public static CodeSave LoadForExecute(string fileName)
     {
+        if (!File.Exists(Application.streamingAssetsPath + "/Save data/" + fileName))
+        {
+            ClearSave(fileName);
+        }
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.streamingAssetsPath + "/Save data/" + fileName, FileMode.Open);
         CodeSave converted = (CodeSave)bf.Deserialize(file);

@@ -82,15 +82,6 @@ public class CodeExecutor : MonoBehaviour
                 float[] dir = ((ParamVector2)inputData[1]).GetValue();
                 player.Rotate(new Vector3(dir[0], 0, dir[1]));
                 break;
-            case BlockID.CompareColor:
-                if (((ParamColor)inputData[1]).GetValue() != ((ParamColor)inputData[2]).GetValue())
-                {
-                    continueFlow = false;
-                }
-                break;
-            case BlockID.LineOfSight:
-                result = new ParamBool(true);
-                break;
             case BlockID.DirectionTo:
                 GameObject nearest = Objective.PickupNearestTo(player.transform.position);
                 if (nearest != null)
@@ -119,6 +110,12 @@ public class CodeExecutor : MonoBehaviour
                 }
             case BlockID.LastTrigger:
                 result = new ParamColor(TriggerPlate.LastColor);
+                break;
+            case BlockID.CompareColor:
+                if (((ParamColor)inputData[1]).GetValue() != ((ParamColor)inputData[2]).GetValue())
+                {
+                    continueFlow = false;
+                }
                 break;
             case BlockID.Debug:
                 Debug.Log(((ParamColor)inputData[1]).GetValue());

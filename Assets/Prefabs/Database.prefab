@@ -62,6 +62,8 @@ MonoBehaviour:
   integratedParamPrefab: {fileID: -1414193502228395731, guid: 456de78fdd2a417469a7d4e4add7ba43, type: 3}
   menuBlockEntryPrefab: {fileID: 5132094618051985505, guid: 393965a317602ab49928e906820594b3, type: 3}
   linkPrefab: {fileID: -7885143666839943631, guid: c93fb2b0ed75139498beaef0fd7db799, type: 3}
+  pickupPS: {fileID: 8072825695071624807, guid: 7cc0f17d929488941a07491e3eae2e12, type: 3}
+  triggerPS: {fileID: 8072825695071624807, guid: 2f7688abeb66c644ba2391b5f472083d, type: 3}
   codeWindow: {fileID: 0}
   codeExecutor: {fileID: 0}
   objective: {fileID: 4686401944567318868}

@@ -10,7 +10,7 @@ public class TriggerPlate : MonoBehaviour
     public enum TriggerColor
     {
         Yellow,
-        Red,
+        Green,
         Blue,
         None = 8,
     }
@@ -29,14 +29,34 @@ public class TriggerPlate : MonoBehaviour
             case TriggerColor.Yellow:
                 Recolor.RefreshColors(0);
                 break;
-            case TriggerColor.Red:
+            case TriggerColor.Green:
                 Recolor.RefreshColors(1);
                 break;
             case TriggerColor.Blue:
                 Recolor.RefreshColors(2);
                 break;
         }
+        other.transform.position = new Vector3(transform.position.x, other.transform.position.y, transform.position.z);
         Triggered = this;
+
+        ParticleSystem ps = Instantiate(Database.Instance.triggerPS, transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+        ParticleSystem.MainModule main = ps.main;
+        switch (color)
+        {
+            case TriggerColor.Yellow:
+                main.startColor = Database.GetColor(ColorPalette.Slot.Light1Fixed);
+                ps.transform.GetChild(0).GetComponent<Light>().color = Database.GetColor(ColorPalette.Slot.Light1Fixed);
+                break;
+            case TriggerColor.Green:
+                main.startColor = Database.GetColor(ColorPalette.Slot.Light2Fixed);
+                ps.transform.GetChild(0).GetComponent<Light>().color = Database.GetColor(ColorPalette.Slot.Light2Fixed);
+                break;
+            case TriggerColor.Blue:
+                main.startColor = Database.GetColor(ColorPalette.Slot.Light3Fixed);
+                ps.transform.GetChild(0).GetComponent<Light>().color = Database.GetColor(ColorPalette.Slot.Light3Fixed);
+                break;
+        }
+
     }
 
     private void OnTriggerExit(Collider other)

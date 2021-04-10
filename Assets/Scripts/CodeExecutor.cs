@@ -9,6 +9,8 @@ public class CodeExecutor : MonoBehaviour
 
     private Player player;
 
+    [HideInInspector] public bool moveRotated = false;
+
     private void Awake()
     {
         player = GetComponent<Player>();
@@ -61,6 +63,17 @@ public class CodeExecutor : MonoBehaviour
         {
             data[dataBlocks[i].Key] = ExecuteBlock(dataBlocks[i].Value, code, out bool unused);
         }
+        if (block.ID == BlockID.Move)
+        {
+            Parameter[] temp = new Parameter[data.Length + 1];
+            for (int i = 0; i < data.Length; i++)
+            {
+                temp[i] = data[i];
+            }
+            // add additional parameter that tells whether direction is recieved from conencted block
+            temp[temp.Length - 1] = new ParamBool(dataBlocks.Length == 1);
+            data = temp;
+        }
 
         return ExecuteSingleBlock(block.ID, data, out continueFlow);
     }
@@ -73,7 +86,20 @@ public class CodeExecutor : MonoBehaviour
         {
             case BlockID.Move:
                 float[] xy = ((ParamVector2)inputData[1]).GetValue();
-                player.Move(new Vector3(xy[0], 0, xy[1]));
+                if (((ParamBool)inputData[2]).GetValue() == true)
+                {
+                    player.Move(new Vector3(xy[0], 0, xy[1]));
+                }
+                else
+                {
+                    // rotate only first time as if it was only triggered on start
+                    if (!moveRotated)
+                    {
+                        player.Rotate(transform.TransformDirection(new Vector3(xy[0], 0, xy[1])));
+                        moveRotated = true;
+                    }
+                    player.Move(new Vector3(0, 0, 1));
+                }
                 break;
             case BlockID.Rotate:
                 player.Rotate(((ParamInteger)inputData[1]).GetValue());
@@ -108,17 +134,11 @@ public class CodeExecutor : MonoBehaviour
                     result = new ParamColor(TriggerPlate.LastColor);
                     break;
                 }
-            case BlockID.LastTrigger:
-                result = new ParamColor(TriggerPlate.LastColor);
-                break;
             case BlockID.CompareColor:
                 if (((ParamColor)inputData[1]).GetValue() != ((ParamColor)inputData[2]).GetValue())
                 {
                     continueFlow = false;
                 }
-                break;
-            case BlockID.Debug:
-                Debug.Log(((ParamColor)inputData[1]).GetValue());
                 break;
             default:
                 break;

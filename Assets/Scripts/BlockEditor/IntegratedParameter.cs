@@ -106,17 +106,17 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
                         case TriggerPlate.TriggerColor.Yellow:
                             colorInput[0].isOn = true;
                             colorInput[1].isOn = false;
-                            colorInput[1].isOn = false;
+                            colorInput[2].isOn = false;
                             break;
-                        case TriggerPlate.TriggerColor.Red:
+                        case TriggerPlate.TriggerColor.Green:
                             colorInput[0].isOn = false;
                             colorInput[1].isOn = true;
-                            colorInput[1].isOn = false;
+                            colorInput[2].isOn = false;
                             break;
                         case TriggerPlate.TriggerColor.Blue:
                             colorInput[0].isOn = false;
                             colorInput[1].isOn = false;
-                            colorInput[1].isOn = true;
+                            colorInput[2].isOn = true;
                             break;
                     }
                 }
@@ -186,7 +186,7 @@ public sealed class IntegratedParameter : MonoBehaviour, IPointerEnterHandler, I
             }
             else if (colorInput[1].isOn)
             {
-                return new ParamColor(TriggerPlate.TriggerColor.Red);
+                return new ParamColor(TriggerPlate.TriggerColor.Green);
             }
             else if (colorInput[2].isOn)
             {

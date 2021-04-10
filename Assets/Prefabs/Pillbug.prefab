@@ -368,7 +368,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 0.02
+  m_Height: 0.04
   m_Radius: 0.02
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -512,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5816b54959908b44b32fc2fa7119a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveRotated: 0
 --- !u!114 &8945709318841745057
 MonoBehaviour:
   m_ObjectHideFlags: 0

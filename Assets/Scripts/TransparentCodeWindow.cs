@@ -18,7 +18,9 @@ public class TransparentCodeWindow : MonoBehaviour, IPointerEnterHandler, IPoint
 
     private void OnEnable()
     {
-        GetComponent<ColoredElementHighlight>().Unhighlight();
+        targetAlpha = 1.0f;
+        codeWindow.color = new Color(codeWindow.color.r, codeWindow.color.g, codeWindow.color.b, targetAlpha);
+        codeWindowMenu.color = new Color(codeWindowMenu.color.r, codeWindowMenu.color.g, codeWindowMenu.color.b, targetAlpha);
     }
 
     private void Update()
@@ -29,13 +31,11 @@ public class TransparentCodeWindow : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        GetComponent<ColoredElementHighlight>().Highlight();
         targetAlpha = 0.4f;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        GetComponent<ColoredElementHighlight>().Unhighlight();
         targetAlpha = 1.0f;
     }
 }

@@ -809,9 +809,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7301572049067943761}
-  - component: {fileID: 1566625943776107111}
-  - component: {fileID: 2959269696992430461}
-  - component: {fileID: 3271683478414019646}
   m_Layer: 5
   m_Name: BottomButtons
   m_TagString: Untagged
@@ -840,50 +837,6 @@ RectTransform:
   m_AnchoredPosition: {x: -48, y: 32}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 1, y: 0}
---- !u!114 &1566625943776107111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397489110919361820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3af4f93840e9f6c4baf3a92a07a7dac6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  graphics:
-  - {fileID: 4660618770657122640}
-  restColor: 4
-  litColor: 5
---- !u!114 &2959269696992430461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397489110919361820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9aaba5dd0c0d24997618c4e794b4b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  graphics:
-  - colorSlot: 3
-    obj: {fileID: 5214350869765773217}
---- !u!114 &3271683478414019646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397489110919361820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3edb3aa69eb46734698a320364d53aa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeSpeed: 10
 --- !u!1 &709833741801380656
 GameObject:
   m_ObjectHideFlags: 0
@@ -3682,6 +3635,8 @@ GameObject:
   - component: {fileID: 6668689116007821262}
   - component: {fileID: 1150451549498927539}
   - component: {fileID: 4660618770657122640}
+  - component: {fileID: 995198268710275239}
+  - component: {fileID: 4819220519694764763}
   m_Layer: 5
   m_Name: View
   m_TagString: Untagged
@@ -3747,6 +3702,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &995198268710275239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5030509002173557775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007d5e32f1b91c6499eae35245f0e48f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textColor: 0
+  restColor: 4
+  hoverColor: 5
+  pressColor: 7
+  onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4911610646413829368}
+        m_TargetAssemblyTypeName: CodeWindow, Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4819220519694764763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5030509002173557775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3edb3aa69eb46734698a320364d53aa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeSpeed: 10
 --- !u!1 &5499654452367182150
 GameObject:
   m_ObjectHideFlags: 0
@@ -3978,6 +3977,7 @@ GameObject:
   - component: {fileID: 149161672523502972}
   - component: {fileID: 5214350869765773217}
   - component: {fileID: 3697950453971130235}
+  - component: {fileID: 2306316058885774667}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -4043,6 +4043,21 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &3697950453971130235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6961035525940006448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9aaba5dd0c0d24997618c4e794b4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphics:
+  - colorSlot: 3
+    obj: {fileID: 5214350869765773217}
+--- !u!114 &2306316058885774667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

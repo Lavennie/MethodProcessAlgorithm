@@ -82,6 +82,10 @@ public class CodeWindow : MonoBehaviour, IPointerClickHandler, IBeginDragHandler
             CodeLinks.DropDraggedLink();
             CodeBlocks.DeselectAll();
         }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            CodeLinks.DropDraggedLink();
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)

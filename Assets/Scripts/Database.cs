@@ -35,6 +35,7 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
 
     [Header("Particle systems")]
     public ParticleSystem pickupPS;
+    public ParticleSystem triggerPS;
 
     [Header("In scene references")]
     [SerializeField] private CodeWindow codeWindow;
@@ -51,8 +52,7 @@ public sealed class Database : MonoBehaviour, IEnumerable<KeyValuePair<BlockID, 
         { BlockID.RotateToward, new BlockData("Rotate toward", "Transform", new ConnectorID[2] { ConnectorID.FlowNormal, ConnectorID.Direction2 }, new ConnectorID[1] { ConnectorID.FlowNormal })},
         { BlockID.DirectionTo, new BlockData("Direction To Pickup", "Data", new ConnectorID[0], new ConnectorID[1] { ConnectorID.Vector2 })},
         { BlockID.OnTrigger, new BlockData("On Trigger", "Control", new ConnectorID[1] { ConnectorID.FlowNormal }, new ConnectorID[2] { ConnectorID.FlowIfTrue, ConnectorID.Color }) },
-        { BlockID.LastTrigger, new BlockData("Last Trigger", "Data", new ConnectorID[0], new ConnectorID[1] { ConnectorID.Color }) },
-        { BlockID.CompareColor, new BlockData("Colors Equal", "Data", new ConnectorID[3] { ConnectorID.FlowNormal, ConnectorID.Color, ConnectorID.Color }, new ConnectorID[2] { ConnectorID.FlowIfTrue, ConnectorID.FlowIfFalse }) },
+        { BlockID.CompareColor, new BlockData("Colors Equal", "Control", new ConnectorID[3] { ConnectorID.FlowNormal, ConnectorID.Color, ConnectorID.Color }, new ConnectorID[2] { ConnectorID.FlowIfTrue, ConnectorID.FlowIfFalse }) },
     };
 
     private void Awake()
@@ -119,9 +119,7 @@ public enum BlockID : uint
     RotateToward,
     DirectionTo,
     OnTrigger,
-    LastTrigger,
     CompareColor,
-    Debug = 200,
 }
 public enum ConnectorID : uint
 {

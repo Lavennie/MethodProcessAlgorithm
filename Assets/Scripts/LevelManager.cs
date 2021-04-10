@@ -51,11 +51,18 @@ public class LevelManager : MonoBehaviour
     }
     public static void ReloadLevel()
     {
+        instance.StartCoroutine(instance.ReloadLevelInternal());
+    }
+    private IEnumerator ReloadLevelInternal()
+    {
         CodeExecutor.Stop();
 
         GameObject.FindWithTag("Player").transform.position = instance.playerPos;
         GameObject.FindWithTag("Player").transform.rotation = instance.playerRot;
         GameObject.FindWithTag("Player").GetComponent<Player>().ResetDummy();
+        GameObject.FindWithTag("Player").GetComponent<CodeExecutor>().moveRotated = false;
+
+        yield return null;
 
         GameObject[] pickups = GameObject.FindGameObjectsWithTag("Pickup");
         foreach (var pickup in instance.pickups)
@@ -64,8 +71,11 @@ public class LevelManager : MonoBehaviour
         }
         foreach (var pickup in pickups)
         {
-            DestroyImmediate(pickup);
+            Destroy(pickup);
         }
+
+        yield return null;
+
         Objective.Instance.CheckForPickups();
     }
     public static void ReloadScene()

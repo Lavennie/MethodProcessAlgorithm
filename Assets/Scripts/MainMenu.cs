@@ -8,9 +8,24 @@ public class MainMenu : MonoBehaviour
     public RectTransform levelButtonPrefab;
     public int levelCount = 10;
 
+    [SerializeField] GameObject mainScreen;
+
     private void Awake()
     {
         RemakeButtons();
+    }
+
+    public void GoToLevelSelect()
+    {
+        mainScreen.SetActive(false);
+    }
+    public void GoToMainScreen()
+    {
+        mainScreen.SetActive(true);
+    }
+    public void CloseGame()
+    {
+        Application.Quit();
     }
 
     private void RemakeButtons()

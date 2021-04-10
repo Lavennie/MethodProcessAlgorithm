@@ -31,11 +31,20 @@ public class Player : MonoBehaviour
         {
             Objective.PickPickup(other.gameObject);
         }
+        // it is a barrier
+        else if (other.GetComponent<TriggerPlate>() == null)
+        {
+            LevelManager.ReloadLevel();
+        }
     }
 
     public void Rotate(float angle)
     {
         dummy.Rotate(0, angle, 0);
+        // snap to 45 degrees angles
+        angle = Vector3.SignedAngle(Vector3.forward, dummy.forward, Vector3.up);
+        angle = Mathf.RoundToInt(angle / 45.0f) * 45;
+        dummy.rotation = Quaternion.Euler(0, angle, 0);
     }
     public void Rotate(Vector3 direction)
     {

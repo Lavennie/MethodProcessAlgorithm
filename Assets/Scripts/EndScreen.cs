@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +9,7 @@ public class EndScreen : MonoBehaviour
         Instance.gameObject.SetActive(true);
         if (won)
         {
-            Instance.Next.gameObject.SetActive(true);
+            Instance.Next.gameObject.SetActive(LevelManager.CurLevelNumber() < 10);
             Instance.WinLoseText.text = "WIN";
         }
         else

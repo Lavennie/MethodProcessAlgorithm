@@ -60,8 +60,10 @@ public class Objective : MonoBehaviour
         Instance.pickedCount++;
         Destroy(pickup);
 
-        ParticleSystem.MainModule main = Instantiate(Database.Instance.pickupPS, pickup.transform.position, Quaternion.identity).main;
+        ParticleSystem ps = Instantiate(Database.Instance.pickupPS, pickup.transform.position + new Vector3(0, 3.2f, 0), Quaternion.identity);
+        ParticleSystem.MainModule main = ps.main;
         main.startColor = Database.GetColor(ColorPalette.Slot.InverseLight);
+        ps.transform.GetChild(0).GetComponent<Light>().color = Database.GetColor(ColorPalette.Slot.InverseLight);
 
         AudioManager.PlaySoundEffect(AudioManager.SoundEffects.Pickup);
     }

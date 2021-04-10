@@ -115,6 +115,22 @@ public sealed class Connector : MonoBehaviour, IPointerEnterHandler, IPointerExi
         }
         return null;
     }
+    public Connector[] GetConnectedMultiple()
+    {
+        List<Connector> connected = new List<Connector>();
+        foreach (var link in CodeWindow.Instance.Links.GetLinks())
+        {
+            if (Type == ConnectorType.Input && link.Input == this)
+            {
+                connected.Add(link.Output);
+            }
+            else if (Type == ConnectorType.Output && link.Output == this)
+            {
+                connected.Add(link.Input);
+            }
+        }
+        return connected.ToArray();
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {

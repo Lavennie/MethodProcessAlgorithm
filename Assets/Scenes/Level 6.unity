@@ -353,10 +353,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4804851563253522175, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 24feea0bd465f59428f758fcd41be95d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
 --- !u!1001 &51536365
@@ -404,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2404622032938630194, guid: 2e2f06913e3270849ab5e39234bebf09, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.42131674
+      value: 0.4213167
       objectReference: {fileID: 0}
     - target: {fileID: 2404622032938630194, guid: 2e2f06913e3270849ab5e39234bebf09, type: 3}
       propertyPath: m_LocalRotation.y
@@ -412,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2404622032938630194, guid: 2e2f06913e3270849ab5e39234bebf09, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.4219458
+      value: 0.42194572
       objectReference: {fileID: 0}
     - target: {fileID: 2404622032938630194, guid: 2e2f06913e3270849ab5e39234bebf09, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -671,6 +667,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 106012704}
     m_Modifications:
+    - target: {fileID: 81920877, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
+      propertyPath: lights.Array.data[0].colorSlot
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 4804851563253521922, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
       propertyPath: m_Name
       value: Trigger (3)
@@ -1175,6 +1175,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 106012704}
     m_Modifications:
+    - target: {fileID: 81920877, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
+      propertyPath: lights.Array.data[0].colorSlot
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 4804851563253521922, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
       propertyPath: m_Name
       value: Trigger (9)
@@ -5606,6 +5610,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 106012704}
     m_Modifications:
+    - target: {fileID: 81920877, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
+      propertyPath: lights.Array.data[0].colorSlot
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 4804851563253521922, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
       propertyPath: m_Name
       value: Trigger (1)
@@ -5956,6 +5964,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 106012704}
     m_Modifications:
+    - target: {fileID: 81920877, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
+      propertyPath: lights.Array.data[0].colorSlot
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4804851563253521922, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
       propertyPath: m_Name
       value: Trigger (2)
@@ -6543,6 +6555,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 106012704}
     m_Modifications:
+    - target: {fileID: 81920877, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
+      propertyPath: lights.Array.data[0].colorSlot
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 4804851563253521922, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
       propertyPath: m_Name
       value: Trigger (4)
@@ -8039,7 +8055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3859932372634319004, guid: dd85d121da3a937428241810e5cd748b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.42131674
+      value: 0.4213167
       objectReference: {fileID: 0}
     - target: {fileID: 3859932372634319004, guid: dd85d121da3a937428241810e5cd748b, type: 3}
       propertyPath: m_LocalRotation.y
@@ -8047,7 +8063,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3859932372634319004, guid: dd85d121da3a937428241810e5cd748b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.4219458
+      value: 0.42194572
       objectReference: {fileID: 0}
     - target: {fileID: 3859932372634319004, guid: dd85d121da3a937428241810e5cd748b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8131,6 +8147,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 106012704}
     m_Modifications:
+    - target: {fileID: 81920877, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
+      propertyPath: lights.Array.data[0].colorSlot
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4804851563253521922, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
       propertyPath: m_Name
       value: Trigger (6)
@@ -8178,10 +8198,6 @@ PrefabInstance:
     - target: {fileID: 4804851563253522169, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4804851563253522173, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
-      propertyPath: color
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4804851563253522175, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -9462,6 +9478,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 106012704}
     m_Modifications:
+    - target: {fileID: 81920877, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
+      propertyPath: lights.Array.data[0].colorSlot
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4804851563253521922, guid: 74987a3ec154e1347885e50c1fd39396, type: 3}
       propertyPath: m_Name
       value: Trigger

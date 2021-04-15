@@ -26,7 +26,7 @@ public class Objective : MonoBehaviour
         enabled = false;
         CodeExecutor.Instance.enabled = false;
         CodeExecutor.Instance.ResetToIdle();
-        EndScreen.Open(true);
+        EndScreen.Open();
         AudioManager.PlaySoundEffect(AudioManager.SoundEffects.Win);
         CodeSave.ClearSave($"saveData{LevelManager.CurLevelNumber()}.save");
         LevelManager.UpdateClearCount(LevelManager.CurLevelNumber());

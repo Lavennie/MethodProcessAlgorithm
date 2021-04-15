@@ -4321,6 +4321,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4911610646032895713}
     m_Modifications:
+    - target: {fileID: 949590609322934570, guid: fa6c78572e966d8479e0bb3fe7288075, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477783846317337232, guid: fa6c78572e966d8479e0bb3fe7288075, type: 3}
+      propertyPath: m_text
+      value: Victory
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477783846317337232, guid: fa6c78572e966d8479e0bb3fe7288075, type: 3}
+      propertyPath: m_fontSize
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477783846317337232, guid: fa6c78572e966d8479e0bb3fe7288075, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 8925291793008442752, guid: fa6c78572e966d8479e0bb3fe7288075, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4408,6 +4424,10 @@ PrefabInstance:
     - target: {fileID: 8925291793008442879, guid: fa6c78572e966d8479e0bb3fe7288075, type: 3}
       propertyPath: m_Name
       value: End Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8925291793008442879, guid: fa6c78572e966d8479e0bb3fe7288075, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa6c78572e966d8479e0bb3fe7288075, type: 3}

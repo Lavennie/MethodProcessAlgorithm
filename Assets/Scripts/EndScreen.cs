@@ -4,19 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class EndScreen : MonoBehaviour
 {
-    public static void Open(bool won)
+    public static void Open()
     {
         Instance.gameObject.SetActive(true);
-        if (won)
-        {
-            Instance.Next.gameObject.SetActive(LevelManager.CurLevelNumber() < 10);
-            Instance.WinLoseText.text = "WIN";
-        }
-        else
-        {
-            Instance.Next.gameObject.SetActive(false);
-            Instance.WinLoseText.text = "LOSE";
-        }
+        Instance.Next.gameObject.SetActive(LevelManager.CurLevelNumber() < 10);
     }
     public void ReplayLevel()
     {

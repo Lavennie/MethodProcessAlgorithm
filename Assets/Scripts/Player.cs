@@ -61,7 +61,8 @@ public class Player : MonoBehaviour
         if (direction == Vector3.zero) { return; }
         direction = dummy.TransformDirection(direction);
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction, Vector3.up), rotateSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, 
+            Quaternion.LookRotation(direction, Vector3.up), rotateSpeed * Time.deltaTime);
 
         speedInThisFrame = direction.magnitude * moveSpeed;
         cc.Move((direction * moveSpeed + Physics.gravity) * Time.deltaTime);

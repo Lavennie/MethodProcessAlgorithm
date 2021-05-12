@@ -13,6 +13,12 @@ public class LevelManager : MonoBehaviour
     private Vector3 playerPos;
     private Quaternion playerRot;
 
+
+#if UNITY_WEBGL
+    [System.Runtime.InteropServices.DllImport("__Internal")]
+    private static extern void SyncFiles();
+#endif
+
     private void Awake()
     {
         instance = this;
@@ -95,15 +101,27 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
         Directory.CreateDirectory(Application.streamingAssetsPath + "/Save data/");
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.streamingAssetsPath + "/Save data/clearCount.save", FileMode.OpenOrCreate);
         bf.Serialize(file, new LevelsCleared(clearCount));
         file.Close();
+        MemoryStream ms = new MemoryStream();
+        using (ms)
+        {
+            bf.Serialize(ms, new LevelsCleared(clearCount));
+        }
+#elif UNITY_WEBGL
+        PlayerPrefs.SetInt("clearCount", clearCount);
+        PlayerPrefs.Save();
+        SyncFiles();
+#endif
     }
     public static int ClearedCount()
     {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
         BinaryFormatter bf = new BinaryFormatter();
         if (File.Exists(Application.streamingAssetsPath + "/Save data/clearCount.save"))
         {
@@ -117,10 +135,14 @@ public class LevelManager : MonoBehaviour
         {
             return 0;
         }
+#elif UNITY_WEBGL
+        return PlayerPrefs.GetInt("clearCount", 0);
+#endif
     }
 
     public static void ClearSaveData()
     {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
         if (!Directory.Exists(Application.streamingAssetsPath + "/Save data/"))
         {
             return;
@@ -131,6 +153,11 @@ public class LevelManager : MonoBehaviour
         {
             File.Delete(files[i]);
         }
+#elif UNITY_WEBGL
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        SyncFiles();
+#endif
     }
 
     [System.Serializable]

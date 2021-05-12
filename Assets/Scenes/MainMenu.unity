@@ -990,6 +990,11 @@ MonoBehaviour:
   levelButtonPrefab: {fileID: 1249617797286354112, guid: caba3bbe7740f584d9a4a0e9d307d3d5, type: 3}
   levelCount: 10
   mainScreen: {fileID: 1530985740}
+  pcOnly:
+  - {fileID: 2105294156}
+  - {fileID: 915506294}
+  - {fileID: 1044279522}
+  - {fileID: 464694115}
 --- !u!114 &677840999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1706,7 +1711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1530985741
 RectTransform:
   m_ObjectHideFlags: 0

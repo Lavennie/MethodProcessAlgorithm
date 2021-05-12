@@ -8,11 +8,23 @@ public class MainMenu : MonoBehaviour
     public RectTransform levelButtonPrefab;
     public int levelCount = 10;
 
-    [SerializeField] GameObject mainScreen;
+    [SerializeField] private GameObject mainScreen;
+    [SerializeField] private GameObject[] pcOnly;
 
     private void Awake()
     {
         RemakeButtons();
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        for (int i = 0; i < pcOnly.Length; i++)
+        {
+            pcOnly[i].SetActive(true);
+        }
+#elif UNITY_WEBGL
+        for (int i = 0; i < pcOnly.Length; i++)
+        {
+            pcOnly[i].SetActive(false);
+        }
+#endif
     }
 
     public void GoToLevelSelect()
@@ -41,8 +53,19 @@ public class MainMenu : MonoBehaviour
         for (int i = 0; i < levelCount; i++)
         {
             RectTransform level = Instantiate(levelButtonPrefab, LevelContainer);
-            level.position = startPosition + new Vector3(i % LEVELS_IN_ROW * offset.x, (i / LEVELS_IN_ROW) * -offset.y, 0);
             level.GetChild(0).GetComponent<TextMeshProUGUI>().text = string.Format("Level {0}", i + 1);
+
+            if (i >= LEVELS_IN_ROW)
+            {
+                level.anchorMin = new Vector2((float)(i % LEVELS_IN_ROW) / (float)(LEVELS_IN_ROW - 1), 0);
+                level.anchorMax = level.anchorMin;
+            }
+            else
+            {
+                level.anchorMin = new Vector2((float)(i % LEVELS_IN_ROW) / (float)(LEVELS_IN_ROW - 1), 1);
+                level.anchorMax = level.anchorMin;
+            }
+            level.anchoredPosition = Vector2.zero;
 
             // if level is locked cross it, if it is open add event that loads corresponding level
             if (i > CLEARED_COUNT)

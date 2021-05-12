@@ -10,8 +10,14 @@ public class CodeSave
     private BlockSave[] blocks;
     private LinkSave[] links;
 
+#if UNITY_WEBGL
+    [System.Runtime.InteropServices.DllImport("__Internal")]
+    private static extern void SyncFiles();
+#endif
+
     public static void ClearSave(string fileName)
     {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
         Directory.CreateDirectory(Application.streamingAssetsPath + "/Save data/");
 
         CodeSave save = new CodeSave();
@@ -27,11 +33,15 @@ public class CodeSave
         FileStream file = File.Open(Application.streamingAssetsPath + "/Save data/" + fileName, FileMode.OpenOrCreate);
         bf.Serialize(file, save);
         file.Close();
+#elif UNITY_WEBGL
+        int levelIndex = int.Parse(fileName.Split('.')[0].Substring(8, 1));
+        PlayerPrefs.DeleteKey($"level{levelIndex}");
+        PlayerPrefs.Save();
+        SyncFiles();
+#endif
     }
     public static void Save(CodeWindow code, string fileName)
     {
-        Directory.CreateDirectory(Application.streamingAssetsPath + "/Save data/");
-
         CodeSave converted = new CodeSave();
         converted.blocks = new BlockSave[code.Blocks.BlockCount];
         // save block data in correct format
@@ -55,21 +65,59 @@ public class CodeSave
                 Connector.GetConnectorIndex(code.Links[i].Input), Connector.GetConnectorIndex(code.Links[i].Output));
         }
 
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        Directory.CreateDirectory(Application.streamingAssetsPath + "/Save data/");
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.streamingAssetsPath + "/Save data/" + fileName, FileMode.OpenOrCreate);
         bf.Serialize(file, converted);
         file.Close();
+
+#elif UNITY_WEBGL
+        int levelIndex = int.Parse(fileName.Split('.')[0].Substring(8, 1));
+        BinaryFormatter bf = new BinaryFormatter();
+        MemoryStream ms = new MemoryStream();
+        using (ms)
+        {
+            bf.Serialize(ms, converted);
+        }
+        PlayerPrefs.SetString($"level{levelIndex}", System.Convert.ToBase64String(ms.ToArray()));
+        PlayerPrefs.Save();
+        SyncFiles();
+#endif
     }
     public static void Load(CodeWindow code, string fileName)
     {
+        CodeSave converted;
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
         BinaryFormatter bf = new BinaryFormatter();
         if (!File.Exists(Application.streamingAssetsPath + "/Save data/" + fileName))
         {
             ClearSave(fileName);
         }
         FileStream file = File.Open(Application.streamingAssetsPath + "/Save data/" + fileName, FileMode.Open);
-        CodeSave converted = (CodeSave)bf.Deserialize(file);
+        converted = (CodeSave)bf.Deserialize(file);
         file.Close();
+#elif UNITY_WEBGL
+        int levelIndex = int.Parse(fileName.Split('.')[0].Substring(8, 1));
+        if (PlayerPrefs.HasKey($"level{levelIndex}"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(System.Convert.FromBase64String(PlayerPrefs.GetString($"level{levelIndex}", "")));
+            converted = (CodeSave)bf.Deserialize(ms);
+        }
+        else
+        {
+            converted = new CodeSave();
+            converted.blocks = new BlockSave[1]
+            {
+            new BlockSave(BlockID.Update,
+            new Vector2(((RectTransform)CodeWindow.Instance.Menu.transform).sizeDelta.x + 200, Screen.height -100),
+            new Parameter[0])
+            };
+            converted.links = new LinkSave[0];
+        }
+#endif
 
         foreach (var block in converted.blocks)
         {
@@ -83,6 +131,8 @@ public class CodeSave
     }
     public static CodeSave LoadForExecute(string fileName)
     {
+        CodeSave converted;
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
         if (!File.Exists(Application.streamingAssetsPath + "/Save data/" + fileName))
         {
             ClearSave(fileName);
@@ -90,9 +140,28 @@ public class CodeSave
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.streamingAssetsPath + "/Save data/" + fileName, FileMode.Open);
-        CodeSave converted = (CodeSave)bf.Deserialize(file);
+        converted = (CodeSave)bf.Deserialize(file);
         file.Close();
-
+#elif UNITY_WEBGL
+        int levelIndex = int.Parse(fileName.Split('.')[0].Substring(8, 1));
+        if (PlayerPrefs.HasKey($"level{levelIndex}"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(System.Convert.FromBase64String(PlayerPrefs.GetString($"level{levelIndex}", "")));
+            converted = (CodeSave)bf.Deserialize(ms);
+        }
+        else
+        {
+            converted = new CodeSave();
+            converted.blocks = new BlockSave[1]
+            {
+            new BlockSave(BlockID.Update,
+            new Vector2(((RectTransform)CodeWindow.Instance.Menu.transform).sizeDelta.x + 200, Screen.height -100),
+            new Parameter[0])
+            };
+            converted.links = new LinkSave[0];
+        }
+#endif
         return converted;
     }
 
